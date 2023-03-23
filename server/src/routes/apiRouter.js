@@ -9,6 +9,7 @@ apiRouter.get("/", (req, res) => {
   res.send("main api route");
 });
 
+//routing
 apiRouter.use("/user", userRoute);
 apiRouter.use("/register", registerRoute);
 apiRouter.use("/login", loginRoute);
