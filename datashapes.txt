@@ -1,37 +1,41 @@
 Tables
-    users
+    #users
         -id (PK)    [INT]
         -username   [NVARCHAR : 100]
         -email      [NVARCHAR : 200]
         -password   [NVARCHAR : 200]
         -phone      [NVARCHAR : 30]
-        -status(active, in-active)  [NVARCHAR : 30]
-        -type(normal,admin)         [NVARCHAR : 30]
+        -status(active, in-active)  [NVARCHAR : 20]
+        -type(normal,admin)         [NVARCHAR : 20]
 
-  (relation between users and exams (1 : many))
-
-    exams
+    #exams
         -id (PK)               [INT]
         -userID (FK)           [INT]
+        -audioFileID(FK)       [INT]
         -name                  [NVARCHAR : 100]
-        -question              [NVARCHAR : 100]
-        -audioFile             [NVARCHAR : 500]
         -status(act, in-act)   [NVARCHAR : 20]
 
-
-    questions
+    #questions
         -id (PK)                [INT]
+        -audioFileID (fk)       [INT]
         -text                   [NVARCHAR : 300]
-
-    (relation between questions and question responses (1 : many))
-    questionResponses 
+  
+    #questionResponses 
         -id (PK)                [INT]
         -questionID (FK)        [INT]
         -text                   [NVARCHAR : 300] 
-        -priority               [INT : 1 - 4]
+        -priority               [INT : (0,1)]
     
-
-    examQuestions  (relation between exams and questions (many : many))
+    #examQuestions 
         -questionID (FK)   [INT]
         -examID (FK)       [INT]
+
+    #audioFiles
+        -id      [INT]
+        -path    [NVARCHAR : 500]
+
+    #history
+        -examID(fk)   [INT]
+        -userID(fk)   [INT]
+        
         

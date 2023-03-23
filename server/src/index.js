@@ -12,6 +12,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api", apiRouter);
+console.log("222221")
 
 
 //server
@@ -22,4 +23,4 @@ app.get("/", (req, res) => {
 app.listen(PORT, (req, res) => {
   console.log(`Server running on port ${PORT}`);
 });
-console.log('test');
+console.log("asjkdfhksjh");
