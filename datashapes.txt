@@ -1,0 +1,37 @@
+Tables
+    users
+        -id (PK)    [INT]
+        -username   [NVARCHAR : 100]
+        -email      [NVARCHAR : 200]
+        -password   [NVARCHAR : 200]
+        -phone      [NVARCHAR : 30]
+        -status(active, in-active)  [NVARCHAR : 30]
+        -type(normal,admin)         [NVARCHAR : 30]
+
+  (relation between users and exams (1 : many))
+
+    exams
+        -id (PK)               [INT]
+        -userID (FK)           [INT]
+        -name                  [NVARCHAR : 100]
+        -question              [NVARCHAR : 100]
+        -audioFile             [NVARCHAR : 500]
+        -status(act, in-act)   [NVARCHAR : 20]
+
+
+    questions
+        -id (PK)                [INT]
+        -text                   [NVARCHAR : 300]
+
+    (relation between questions and question responses (1 : many))
+    questionResponses 
+        -id (PK)                [INT]
+        -questionID (FK)        [INT]
+        -text                   [NVARCHAR : 300] 
+        -priority               [INT : 1 - 4]
+    
+
+    examQuestions  (relation between exams and questions (many : many))
+        -questionID (FK)   [INT]
+        -examID (FK)       [INT]
+        
