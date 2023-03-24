@@ -10,17 +10,17 @@ const app = express();
 
 //middleware
 app.use(express.json());
+app.use(express.urlencoded({extended : false}))
 
+
+//routes
 app.use("/api", apiRouter);
-console.log("222221")
 
-
-//server
 app.get("/", (req, res) => {
   res.send("server running");
 });
 
+//server
 app.listen(PORT, (req, res) => {
   console.log(`Server running on port ${PORT}`);
 });
-console.log("asjkdfhksjh");
