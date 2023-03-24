@@ -1,4 +1,4 @@
-import mysql from "mysql";
+import mysql from "mysql-await";
 import dotenv from "dotenv";
 
 dotenv.config();

@@ -1,14 +1,75 @@
 import conn from "../config/database.js";
-import mysql from "mysql";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const { SALT_ROUNDS } = process.env;
 
 export class User {
-  insertUser = (username, password) => {
-    const sql = "INSERT INTO users set ?";
-    const values = { username: username, password: password };
-    conn.query(sql, values, (err) => {
-      if (err) {
-        console.log(err);
+  getUser = async (id) => {
+    let row;
+    try {
+      const sql = "SELECT * FROM users WHERE id = ?";
+      const values = [id];
+      const result = await conn.awaitQuery(sql, values);
+      return result[0];
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  createUser = async (username, email, phone, password) => {
+    try {
+      password = await bcrypt.hash(password, 10);
+      const sql =
+        "INSERT INTO users (username, email, phone, password ) VALUES (?,?,?,?)";
+      const values = [username, email, phone, password];
+      const result = await conn.awaitQuery(sql, values);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  deleteUser = async (id) => {
+    try {
+      const sql = "DELETE FROM users WHERE id = ?";
+      const values = [id];
+      const result = await conn.awaitQuery(sql, values);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  updateUserData = async (id, username, email, phone) => {
+    try {
+      const sql =
+        "UPDATE users SET username = ?, email = ?, phone = ? WHERE id = ?";
+      const values = [username, email, phone, id];
+      const result = await conn.awaitQuery(sql, values);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  updateUserPassword = async (id, password, newPassword) => {
+    try {
+      const myUser = await this.getUser(id);
+      const passwordHash = myUser.password
+      const isPasswordCorrect = bcrypt.compareSync(password, passwordHash);
+      if (isPasswordCorrect) {
+        const sql = "UPDATE users SET password = ?";
+        const values = [newPassword];
+        const result = await conn.awaitQuery(sql, values);
+        return { message: "password updated" }
+      } else {
+        return { message: "password is incorrect" };
       }
-    });
+    } catch (err) {
+      throw err;
+    }
   };
 }
