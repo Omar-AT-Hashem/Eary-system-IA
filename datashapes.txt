@@ -5,37 +5,34 @@ Tables
         -email      [NVARCHAR : 200]
         -password   [NVARCHAR : 200]
         -phone      [NVARCHAR : 30]
-        -status(active, in-active)  [NVARCHAR : 20]
-        -type(normal,admin)         [NVARCHAR : 20]
+        -isActive   [INT]  (Default 0)
+        -isAdmin    [INT]  (Default 0)
 
     #exams
         -id (PK)               [INT]
         -userID (FK)           [INT]
-        -audioFileID(FK)       [INT]
         -name                  [NVARCHAR : 100]
-        -status(act, in-act)   [NVARCHAR : 20]
+        -isActive              [INT]  (Default 1)
 
     #questions
         -id (PK)                [INT]
-        -audioFileID (fk)       [INT]
-        -text                   [NVARCHAR : 300]
+        -audioFile              [NVARCHAR : 300]
+        -text                   [NVARCHAR : 500]
   
-    #questionResponses 
+    #questionresponses 
         -id (PK)                [INT]
         -questionID (FK)        [INT]
         -text                   [NVARCHAR : 300] 
-        -priority               [INT : (0,1)]
+        -isCorrect              [INT] 
     
-    #examQuestions 
+    #examquestions 
         -questionID (FK)   [INT]
         -examID (FK)       [INT]
-
-    #audioFiles
-        -id      [INT]
-        -path    [NVARCHAR : 500]
-
+  
     #history
-        -examID(fk)   [INT]
-        -userID(fk)   [INT]
+        -id (PK)      [INT]
+        -examID(FK)   [INT]
+        -userID(FK)   [INT]
+        -grade        [INT]
         
         
