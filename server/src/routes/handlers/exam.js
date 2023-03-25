@@ -5,10 +5,25 @@ export const examRoute = express.Router();
 
 const exam = new Exam();
 
+const index = async (req, res) => {
+  try {
+    const result = await exam.index();
+    console.log(result);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).send("Not found");
+    throw err;
+  }
+};
+
 const getExam = async (req, res) => {
-  const id = req.params.id;
-  const result = await exam.getExam(id);
-  res.json(result);
+  try{
+    const id = req.params.id;
+    const result = await exam.getExam(id);
+    res.status(200).json(result);
+  }catch(err){
+    res.status(404).send(err.message);
+  }
 };
 
 const createExam = async (req, res) => {
@@ -17,8 +32,8 @@ const createExam = async (req, res) => {
     const result = await exam.createExam( userID , name);
     res.send("Exam created");
   } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    res.status(400).send(err.message)
+   
   }
 };
 
@@ -29,8 +44,7 @@ const deleteExam = async (req, res) => {
     const result = await exam.deleteExam(id);
     res.send("Exam deleted");
   } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    res.status(403).send(err.message);
   }
 };
 
@@ -38,18 +52,16 @@ const updateExam = async (req, res) => {
   try {
     const id = req.params.id;
     await exam.getExam(id);
-    let {  userID , name } = req.body;
-
-    await exam.updateExam( userID , name);
+    let { name } = req.body;
+    await exam.updateExam(id, name);
      res.send("Exam updated"); 
   } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    res.status(400).send(err.message)
   }
 };
 
 
-userRoute.get("/getExam/:id", getExam);
-userRoute.post("/createExam", createExam);
-userRoute.put("/updateExam/:id", updateExam);
-userRoute.delete("/deleteExam/:id", deleteExam);
+examRoute.get("/getExam/:id", getExam);
+examRoute.post("/createExam", createExam);
+examRoute.put("/updateExam/:id", updateExam);
+examRoute.delete("/deleteExam/:id", deleteExam);

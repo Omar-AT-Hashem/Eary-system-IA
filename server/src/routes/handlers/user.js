@@ -5,32 +5,44 @@ export const userRoute = express.Router();
 
 const user = new User();
 
+const index = async (req, res) => {
+  try {
+    const result = await user.index();
+    console.log(result);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).send("Not found");
+    throw err;
+  }
+};
+
 const getUser = async (req, res) => {
-  const id = req.params.id;
-  const result = await user.getUser(id);
-  res.json(result);
+  try{
+    const id = req.params.id;
+    const result = await user.getUser(id);
+    res.status(200).send(result);
+  }catch(err){
+    res.status(404).send(err.message); 
+  }
 };
 
 const createUser = async (req, res) => {
   try {
     const { username, email, phone, password } = req.body;
     const result = await user.createUser(username, email, phone, password);
-    res.send("user created");
+    res.status(201).send("user created");
   } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    res.status(400).send(err.message);
   }
 };
 
 const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const result = await user.deleteUser(id);
     res.send("user deleted");
   } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    res.status(403).send(err.message);
   }
 };
 
@@ -51,27 +63,25 @@ const updateUserData = async (req, res) => {
     }
 
     await user.updateUserData(id, username, email, phone);
-     res.send("user updated"); 
+    res.send("user updated");
   } catch (err) {
-    console.log(err.message);
-    res.send(err.message);
+    res.status(400).send(err.message)
   }
 };
 
 const updateUserPassword = async (req, res) => {
-  try{
-    const id = req.params.id
-    const password = req.body.password
-    const newPassword = req.body.newPassword
-    const result = await user.updateUserPassword(id, password, newPassword)
-    res.json(result)
+  try {
+    const id = req.params.id;
+    const password = req.body.password;
+    const newPassword = req.body.newPassword;
+    const result = await user.updateUserPassword(id, password, newPassword);
+    res.json(result);
+  } catch (err) {
+    res.status(400).send(err.message)
   }
-  catch(err){
-    console.log(err.message);
-    res.send(err.message);
-  }
-}
+};
 
+userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
 userRoute.post("/create", createUser);
 userRoute.put("/update-data/:id", updateUserData);

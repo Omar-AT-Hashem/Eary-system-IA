@@ -1,19 +1,34 @@
 import conn from "../config/database.js";
 import bcrypt from "bcrypt";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const { SALT_ROUNDS } = process.env;
 
 export class User {
+  index = async () => {
+    try {
+      const sql = "SELECT * FROM users";
+      const result = await conn.awaitQuery(sql);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   getUser = async (id) => {
-    let row;
     try {
       const sql = "SELECT * FROM users WHERE id = ?";
       const values = [id];
       const result = await conn.awaitQuery(sql, values);
       return result[0];
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  getUserByEmail = async (email) => {
+    try {
+      const sql = "SELECT * FROM users WHERE email = ?";
+      const values = [email];
+      const result = await conn.awaitQuery(sql, values);
+      return result;
     } catch (err) {
       throw err;
     }
@@ -55,16 +70,17 @@ export class User {
     }
   };
 
+  //TODO - test this function
   updateUserPassword = async (id, password, newPassword) => {
     try {
       const myUser = await this.getUser(id);
-      const passwordHash = myUser.password
+      const passwordHash = myUser.password;
       const isPasswordCorrect = bcrypt.compareSync(password, passwordHash);
       if (isPasswordCorrect) {
         const sql = "UPDATE users SET password = ?";
         const values = [newPassword];
         const result = await conn.awaitQuery(sql, values);
-        return { message: "password updated" }
+        return { message: "password updated" };
       } else {
         return { message: "password is incorrect" };
       }

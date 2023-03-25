@@ -20,7 +20,6 @@ Tables
         -text                   [NVARCHAR : 500]
   
     #questionresponses 
-        -id (PK)                [INT]
         -questionID (FK)        [INT]
         -text                   [NVARCHAR : 300] 
         -isCorrect              [INT] 

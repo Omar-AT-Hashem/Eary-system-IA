@@ -1,6 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from 'cors'
+
 import { apiRouter } from "./routes/apiRouter.js";
+
 
 dotenv.config();
 
@@ -8,9 +11,12 @@ dotenv.config();
 const PORT = process.env.SERVER_PORT;
 const app = express();
 
+
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({extended : true}))
+app.use(cors())
+
 
 
 //routes

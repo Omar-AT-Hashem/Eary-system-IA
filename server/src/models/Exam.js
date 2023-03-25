@@ -1,16 +1,20 @@
 import conn from "../config/database.js";
-import bcrypt from "bcrypt";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const { SALT_ROUNDS } = process.env;
 
 export class Exam {
-  getExam = async (id) => {
-    let row;
+
+  index = async () => {
     try {
-      const sql = "SELECT * FROM Exam WHERE id = ?";
+      const sql = "SELECT * FROM exams";
+      const result = await conn.awaitQuery(sql);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  getExam = async (id) => {
+    try {
+      const sql = "SELECT * FROM exams WHERE id = ?";
       const values = [id];
       const result = await conn.awaitQuery(sql, values);
       return result[0];
@@ -22,7 +26,7 @@ export class Exam {
   createExam = async (userID, name) => {
     try {
       const sql =
-        "INSERT INTO Exam (userID, name ) VALUES (?,?)";
+        "INSERT INTO exams (userID, name) VALUES (?,?)";
       const values = [userID, name];
       const result = await conn.awaitQuery(sql, values);
       return result;
@@ -33,7 +37,7 @@ export class Exam {
 
   deleteExam = async (id) => {
     try {
-      const sql = "DELETE FROM Exam WHERE id = ?";
+      const sql = "DELETE FROM exams WHERE id = ?";
       const values = [id];
       const result = await conn.awaitQuery(sql, values);
       return result;
@@ -42,17 +46,15 @@ export class Exam {
     }
   };
 
-  updateExam = async (userID, name) => {
+  updateExam = async (name, id) => {
     try {
       const sql =
-        "UPDATE Exam SET userID = ?, name = ?, WHERE id = ?";
-      const values = [userID, name];
+        "UPDATE exams SET name = ?, WHERE id = ?";
+      const values = [name, id];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {
       throw err;
     }
-  };
-
-  
+  }; 
 }
