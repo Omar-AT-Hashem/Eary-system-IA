@@ -1,6 +1,11 @@
 import express from "express";
 import { Question } from "../../models/Question.js";
+import path from 'path';
 import storeAudioFile from "../../utilities/storeAudioFile.js"
+import multer from 'multer'
+
+const uploadPath = path.join(__dirname, '..', '..', '..', 'audioFiles');
+const upload = multer({ dest : uploadPath })
 
 
 export const questionRoute = express.Router();
@@ -32,7 +37,9 @@ const getQuestion = async (req, res) => {
 
 const createQuestion = async (req, res) => {
   try {
-     const audioFile = req.body.audioFile
+     const audioFile = req.file
+     console.log(audioFile)
+    
      const {text, res1, res2, res3, res4} = req.body
      //creates the question
      const result = await question.createQuestion(audioFile, text);
@@ -71,7 +78,7 @@ const updateQuestion = async (req, res) => {
 
 questionRoute.get("/index", index);
 questionRoute.get("/get/:id", getQuestion);
-questionRoute.post("/create", createQuestion);
+questionRoute.post("/create", upload.single('audioFile'), createQuestion);
 questionRoute.put("/updateExam/:id", updateQuestion);
 questionRoute.delete("/delete/:id", deleteQuestion);
 

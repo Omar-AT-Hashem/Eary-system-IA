@@ -24,8 +24,8 @@ export class Question {
 
   createQuestion = async (audioFile, text) => {
     try {
-      const sql = "INSERT INTO questions (audioFile, text) VALUES (?,?)";
-      const values = [audioFile, text];
+      const sql = "INSERT INTO questions (audioFile, text) VALUES ('fss',?)";
+      const values = [ text];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {
