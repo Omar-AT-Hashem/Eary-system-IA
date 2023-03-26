@@ -26,6 +26,16 @@ const getUser = async (req, res) => {
   }
 };
 
+const getInActiveUsers = async (req, res) => {
+  try{
+    const result = await user.getInActiveUsers()
+    res.status(200).json(result)
+  }catch(err){
+    res.status(404).send(err.message); 
+  }
+}
+
+//------ possibly going to be removed and displaced with register 
 const createUser = async (req, res) => {
   try {
     const { username, email, phone, password } = req.body;
@@ -83,6 +93,7 @@ const updateUserPassword = async (req, res) => {
 
 userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
+userRoute.get("/get-in-active", getInActiveUsers);
 userRoute.post("/create", createUser);
 userRoute.put("/update-data/:id", updateUserData);
 userRoute.put("/update-password/:id", updateUserPassword);

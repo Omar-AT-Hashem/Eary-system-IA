@@ -1,10 +1,14 @@
 import conn from "../config/database.js";
 import bcrypt from "bcrypt";
 
+const allColumnsWithoutPassword = "id, username, email, phone, isActive, isAdmin, token"
+
 export class User {
+
+
   index = async () => {
     try {
-      const sql = "SELECT * FROM users";
+      const sql = `SELECT ${allColumnsWithoutPassword} FROM users`;
       const result = await conn.awaitQuery(sql);
       return result;
     } catch (err) {
@@ -14,7 +18,7 @@ export class User {
 
   getUser = async (id) => {
     try {
-      const sql = "SELECT * FROM users WHERE id = ?";
+      const sql = `SELECT ${allColumnsWithoutPassword} FROM users WHERE id = ?`;
       const values = [id];
       const result = await conn.awaitQuery(sql, values);
       return result[0];
@@ -25,7 +29,7 @@ export class User {
 
   getUserByEmail = async (email) => {
     try {
-      const sql = "SELECT * FROM users WHERE email = ?";
+      const sql = `SELECT ${allColumnsWithoutPassword} FROM users WHERE email = ?`;
       const values = [email];
       const result = await conn.awaitQuery(sql, values);
       return result;
@@ -34,12 +38,22 @@ export class User {
     }
   };
 
-  createUser = async (username, email, phone, password) => {
+  getInActiveUsers = async () => {
+    try {
+      const sql = `SELECT ${allColumnsWithoutPassword} FROM users  WHERE isActive = 0 `;
+      const result = await conn.awaitQuery(sql);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  createUser = async (username, email, phone, password, token) => {
     try {
       password = await bcrypt.hash(password, 10);
       const sql =
-        "INSERT INTO users (username, email, phone, password ) VALUES (?,?,?,?)";
-      const values = [username, email, phone, password];
+        "INSERT INTO users (username, email, phone, password, token) VALUES (?,?,?,?,?)";
+      const values = [username, email, phone, password, token];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {

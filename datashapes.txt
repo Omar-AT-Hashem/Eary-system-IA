@@ -7,6 +7,7 @@ Tables
         -phone      [NVARCHAR : 30]
         -isActive   [INT]  (Default 0)
         -isAdmin    [INT]  (Default 0)
+        -token      [NVARCHAR : 150]
 
     #exams
         -id (PK)               [INT]

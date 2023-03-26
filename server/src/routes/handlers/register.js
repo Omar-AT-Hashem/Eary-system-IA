@@ -1,5 +1,6 @@
 import express from 'express'
 import { User } from '../../models/User.js'
+import { v4 as uuid } from 'uuid';
 
 const user = new User();
 
@@ -13,7 +14,8 @@ const registerUser = async (req, res) => {
     if(result.length > 0){
         res.status(210).send("This email address is already registered")
     }else{
-       await user.createUser(username, email, phone, password)
+       const token = uuid()
+       await user.createUser(username, email, phone, password, token)
        res.status(201).send("user registered")   
     }
 }

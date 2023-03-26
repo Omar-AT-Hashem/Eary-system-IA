@@ -1,11 +1,26 @@
 import express from "express";
 import { Question } from "../../models/Question.js";
 import path from 'path';
-import storeAudioFile from "../../utilities/storeAudioFile.js"
+import { fileURLToPath } from 'url';
+
 import multer from 'multer'
 
-const uploadPath = path.join(__dirname, '..', '..', '..', 'audioFiles');
-const upload = multer({ dest : uploadPath })
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+export const uploadPath = path.join(__dirname, '..', '..', '..', 'audioFiles', '/');
+
+
+
+var storage = multer.diskStorage({
+  destination: function (req,file,cb){
+      cb(null, uploadPath)
+  },
+  filename: function (req,file,cb){
+      cb(null,file.originalname);
+  },
+});
+
+const upload = multer({storage : storage})
 
 
 export const questionRoute = express.Router();
@@ -37,12 +52,10 @@ const getQuestion = async (req, res) => {
 
 const createQuestion = async (req, res) => {
   try {
-     const audioFile = req.file
-     console.log(audioFile)
-    
+     const audioFile = req.file 
      const {text, res1, res2, res3, res4} = req.body
      //creates the question
-     const result = await question.createQuestion(audioFile, text);
+     const result = await question.createQuestion(audioFile.path, text);
     const questionID = result.insertId
     //creates the responses for the question
     await question.createResponses(questionID, res1, res2, res3, res4)
