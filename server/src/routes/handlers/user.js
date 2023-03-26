@@ -1,9 +1,13 @@
 import express from "express";
 import { User } from "../../models/User.js";
-
+import { Auth } from "../../middleware/auth.js"
+import { isAdmin } from "../../middleware/adminLoginAuth.js";
 export const userRoute = express.Router();
 
 const user = new User();
+// const admin = new isAdmin();
+// const auth = new Auth();
+
 
 const index = async (req, res) => {
   try {
@@ -97,4 +101,4 @@ userRoute.get("/get-in-active", getInActiveUsers);
 userRoute.post("/create", createUser);
 userRoute.put("/update-data/:id", updateUserData);
 userRoute.put("/update-password/:id", updateUserPassword);
-userRoute.delete("/delete/:id", deleteUser);
+userRoute.delete("/delete/:id",Auth, deleteUser);
