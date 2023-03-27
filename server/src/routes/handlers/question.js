@@ -89,6 +89,9 @@ const updateQuestion = async (req, res) => {
   }
 };
 
+
+// localhost:5000/api/question
+
 questionRoute.get("/index", index);
 questionRoute.get("/get/:id", getQuestion);
 questionRoute.post("/create", upload.single('audioFile'), createQuestion);

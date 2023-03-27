@@ -1,13 +1,10 @@
 import express from "express";
 import { User } from "../../models/User.js";
-import { Auth } from "../../middleware/auth.js"
-import { isAdmin } from "../../middleware/adminLoginAuth.js";
+import auth from "../../middleware/auth.js";
+import adminAuth from "../../middleware/adminAuth.js";
 export const userRoute = express.Router();
 
 const user = new User();
-// const admin = new isAdmin();
-// const auth = new Auth();
-
 
 const index = async (req, res) => {
   try {
@@ -21,32 +18,35 @@ const index = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  try{
+  try {
     const id = req.params.id;
     const result = await user.getUser(id);
-    res.status(200).send(result);
-  }catch(err){
-    res.status(404).send(err.message); 
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+    throw err;
   }
 };
 
 const getInActiveUsers = async (req, res) => {
-  try{
-    const result = await user.getInActiveUsers()
-    res.status(200).json(result)
-  }catch(err){
-    res.status(404).send(err.message); 
+  try {
+    const result = await user.getInActiveUsers();
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+    throw err;
   }
-}
+};
 
-//------ possibly going to be removed and displaced with register 
+//------ possibly going to be removed and displaced with register
 const createUser = async (req, res) => {
   try {
     const { username, email, phone, password } = req.body;
     const result = await user.createUser(username, email, phone, password);
     res.status(201).send("user created");
   } catch (err) {
-    res.status(400).send(err.message);
+    res.status(400).json({ message: err.message });
+    throw err;
   }
 };
 
@@ -54,9 +54,10 @@ const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
     const result = await user.deleteUser(id);
-    res.send("user deleted");
+    res.status(200).json({ message: "user deleted" });
   } catch (err) {
     res.status(403).send(err.message);
+    throw err;
   }
 };
 
@@ -77,9 +78,10 @@ const updateUserData = async (req, res) => {
     }
 
     await user.updateUserData(id, username, email, phone);
-    res.send("user updated");
+    res.status(200).json({ message: "user updated" });
   } catch (err) {
-    res.status(400).send(err.message)
+    res.status(400).json({ message: err.message });
+    throw err;
   }
 };
 
@@ -89,16 +91,19 @@ const updateUserPassword = async (req, res) => {
     const password = req.body.password;
     const newPassword = req.body.newPassword;
     const result = await user.updateUserPassword(id, password, newPassword);
-    res.json(result);
+    res.status(200).json(result);
   } catch (err) {
-    res.status(400).send(err.message)
+    res.status(400).json({ message: err.message });
+    throw err;
   }
 };
 
+// localhost:5000/api/user
+
 userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
-userRoute.get("/get-in-active", getInActiveUsers);
+userRoute.get("/get-in-active", auth, adminAuth, getInActiveUsers);
 userRoute.post("/create", createUser);
 userRoute.put("/update-data/:id", updateUserData);
 userRoute.put("/update-password/:id", updateUserPassword);
-userRoute.delete("/delete/:id",Auth, deleteUser);
+userRoute.delete("/delete/:id", auth, adminAuth, deleteUser);

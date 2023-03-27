@@ -12,14 +12,14 @@ const registerUser = async (req, res) => {
     const {username, email, phone, password } = req.body
     const result = await user.getUserByEmail(email)
     if(result.length > 0){
-        res.status(210).send("This email address is already registered")
+        res.status(210).json({"message":"This email address is already registered"})
     }else{
        const token = uuid()
        await user.createUser(username, email, phone, password, token)
-       res.status(201).send("user registered")   
+       res.status(201).json({"message":"user registered"})   
     }
 }
 
+// localhost:5000/api/register
 
-
-registerRoute.post("/register", registerUser)
+registerRoute.post("/", registerUser)

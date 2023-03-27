@@ -24,8 +24,9 @@ export class Question {
 
   createQuestion = async (audioFilePath, text) => {
     try {
+      const path = audioFilePath.replaceAll("\\", "/")
       const sql = "INSERT INTO questions (audioFile, text) VALUES (?,?)";
-      const values = [ audioFilePath, text];
+      const values = [ path, text];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {

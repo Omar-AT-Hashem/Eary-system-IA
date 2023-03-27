@@ -19,6 +19,8 @@ app.use(cors())
 //routes
 app.use("/api", apiRouter);
 
+
+// localhost:5000
 app.get("/", (req, res) => {
   res.send("server running");
 });

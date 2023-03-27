@@ -1,11 +1,10 @@
 import conn from "../config/database.js";
 import bcrypt from "bcrypt";
 
-const allColumnsWithoutPassword = "id, username, email, phone, isActive, isAdmin, token"
+const allColumnsWithoutPassword =
+  "id, username, email, phone, isActive, isAdmin, token";
 
 export class User {
-
-
   index = async () => {
     try {
       const sql = `SELECT ${allColumnsWithoutPassword} FROM users`;
@@ -46,7 +45,7 @@ export class User {
     } catch (err) {
       throw err;
     }
-  }
+  };
 
   createUser = async (username, email, phone, password, token) => {
     try {
@@ -84,12 +83,25 @@ export class User {
     }
   };
 
+  verifyPassword = async (id, password) => {
+    try {
+        const sql = "SELECT password FROM users WHERE id = ?"
+        const values = [id]
+        const result = await conn.awaitQuery(sql, values)
+        const returnedPassword = result[0].password
+        const comparisonResult = await bcrypt.compare(password, returnedPassword)
+        return comparisonResult
+    } catch (err) {
+      throw err;
+    }
+  };
+
   //TODO - test this function
   updateUserPassword = async (id, password, newPassword) => {
     try {
-      const myUser = await this.getUser(id);
-      const passwordHash = myUser.password;
-      const isPasswordCorrect = bcrypt.compareSync(password, passwordHash);
+      const returnedUser = await this.getUser(id);
+      const passwordHash = returnedUser.password;
+      const isPasswordCorrect = await bcrypt.compare(password, passwordHash);
       if (isPasswordCorrect) {
         const sql = "UPDATE users SET password = ?";
         const values = [newPassword];

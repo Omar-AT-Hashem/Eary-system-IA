@@ -1,28 +1,23 @@
 import { User } from "../models/User.js";
 
-const user= new User();
+const user = new User();
 
-export const Auth = async function(req,res,next) {
-    const token = req.body.token;
-    const userID = req.body.id;
+const auth = async function (req, res, next) {
+  const token = req.headers.authorization.split(' ')[1];
+  console.log(token);
+  const userID = req.headers.userid;
+  console.log(userID);
 
-    if(!token) {
-        return res.status(401).send('access rejected...')
-
+  if (!token) {
+    return res.status(403).json({ message: "access rejected..." });
+  } else if (token) {
+    const returnedUser = await user.getUser(userID);
+    if (returnedUser.token == token) {
+      next();
+    } else {
+      return res.status(403).json({ message: "invalid token..." });
     }
-    else if (token){
-         const myuser = await user.getUser(userID);
-         console.log(myuser);
-         if (myuser.token === token){
-
-            next();
-
-         }
-         else {
-            return res.status(400).send('invalid token...')
-            
-         }
-
-    }
-    
+  }
 };
+
+export default auth;
