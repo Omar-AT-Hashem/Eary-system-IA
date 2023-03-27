@@ -4,10 +4,7 @@ const user = new User();
 
 const auth = async function (req, res, next) {
   const token = req.headers.authorization.split(' ')[1];
-  console.log(token);
   const userID = req.headers.userid;
-  console.log(userID);
-
   if (!token) {
     return res.status(403).json({ message: "access rejected..." });
   } else if (token) {
