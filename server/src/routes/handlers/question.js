@@ -1,5 +1,7 @@
 import express from "express";
 import { Question } from "../../models/Question.js";
+import auth from "../../middleware/auth.js";
+import adminAuth from "../../middleware/adminAuth.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -94,7 +96,7 @@ const updateQuestion = async (req, res) => {
 
 questionRoute.get("/index", index);
 questionRoute.get("/get/:id", getQuestion);
-questionRoute.post("/create", upload.single('audioFile'), createQuestion);
+questionRoute.post("/create",auth, adminAuth, upload.single('audioFile'), createQuestion);
 questionRoute.put("/updateExam/:id", updateQuestion);
 questionRoute.delete("/delete/:id", deleteQuestion);
 
