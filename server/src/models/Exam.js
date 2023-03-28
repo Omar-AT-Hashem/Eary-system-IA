@@ -23,11 +23,11 @@ export class Exam {
     }
   };
 
-  createExam = async (userID, name) => {
+  createExam = async (userID) => {
     try {
       const sql =
-        "INSERT INTO exams (userID, name) VALUES (?,?)";
-      const values = [userID, name];
+        "INSERT INTO exams (userID) VALUES (?)";
+      const values = [userID];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {
@@ -57,4 +57,18 @@ export class Exam {
       throw err;
     }
   }; 
+
+  createExamQuestions = async (examID, questionIDs) => {
+    try {
+      const sql =
+        "INSERT INTO examquestions (questionID, examID) VALUES (?,?)";
+        questionIDs.forEach(async (questionID) => {
+          const values = [questionID, examID];
+          await conn.awaitQuery(sql, values);
+        });
+
+    } catch (err) {
+      throw err;
+    }
+  }
 }

@@ -12,13 +12,13 @@ Tables
     #exams
         -id (PK)               [INT]
         -userID (FK)           [INT]
-        -name                  [NVARCHAR : 100]
         -isActive              [INT]  (Default 1)
 
     #questions
         -id (PK)                [INT]
         -audioFile              [NVARCHAR : 300]
         -text                   [NVARCHAR : 500]
+        -setting                [NVARCHAR : 100]
   
     #questionresponses 
         -questionID (FK)        [INT]
@@ -33,6 +33,6 @@ Tables
         -id (PK)      [INT]
         -examID(FK)   [INT]
         -userID(FK)   [INT]
-        -grade        [INT]
+        -grade        [NVARCHAR : 10]
         
         

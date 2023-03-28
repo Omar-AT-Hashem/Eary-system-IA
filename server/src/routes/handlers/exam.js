@@ -28,9 +28,12 @@ const getExam = async (req, res) => {
 
 const createExam = async (req, res) => {
   try {
-    const { userID , name} = req.body;
-    const result = await exam.createExam( userID , name);
-    res.send("Exam created");
+    const { questionIDs} = req.body;
+    const userID = req.headers.userid
+    const result = await exam.createExam(userID);
+    const examID = result.insertId;
+    await exam.createExamQuestions(examID, questionIDs)
+    res.status(201).json({message:"Exam created"});
   } catch (err) {
     res.status(400).send(err.message)
    
@@ -61,7 +64,7 @@ const updateExam = async (req, res) => {
 };
 
 
-examRoute.get("/getExam/:id", getExam);
-examRoute.post("/createExam", createExam);
+examRoute.get("/get/:id", getExam);
+examRoute.post("/create", createExam);
 examRoute.put("/updateExam/:id", updateExam);
-examRoute.delete("/deleteExam/:id", deleteExam);
+examRoute.delete("/delete/:id", deleteExam);

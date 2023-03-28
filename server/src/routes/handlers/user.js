@@ -98,12 +98,23 @@ const updateUserPassword = async (req, res) => {
   }
 };
 
+const addToHistory = async (req, res) => {
+  try {
+    const { examID, grade } = req.body;
+    const userID = req.headers.userid;
+    await user.addToHistory(examID, userID, grade);
+    res.status(201).json({ message: "The exam was added to the user's history" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 // localhost:5000/api/user
 
 userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
 userRoute.get("/get-in-active", auth, adminAuth, getInActiveUsers);
 userRoute.post("/create", createUser);
+userRoute.post("/add-to-history",addToHistory)
 userRoute.put("/update-data/:id", updateUserData);
 userRoute.put("/update-password/:id", updateUserPassword);
 userRoute.delete("/delete/:id", auth, adminAuth, deleteUser);

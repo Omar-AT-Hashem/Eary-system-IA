@@ -114,4 +114,18 @@ export class User {
       throw err;
     }
   };
+
+
+  addToHistory = async (examID,userID, grade) =>{
+    try {
+      const sql =
+        "INSERT INTO history (examID, userID, grade) VALUES (?,?,?)";
+      const values = [examID, userID, grade];
+      const result = await conn.awaitQuery(sql, values);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+
+  }
 }

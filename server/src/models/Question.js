@@ -22,11 +22,12 @@ export class Question {
     }
   };
 
-  createQuestion = async (audioFilePath, text) => {
+  createQuestion = async (audioFilePath, text, setting) => {
     try {
-      const path = audioFilePath.replaceAll("\\", "/")
-      const sql = "INSERT INTO questions (audioFile, text) VALUES (?,?)";
-      const values = [ path, text];
+      const path = audioFilePath.replaceAll("\\", "/");
+      const sql =
+        "INSERT INTO questions (audioFile, text, setting) VALUES (?,?,?)";
+      const values = [path, text, setting];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {
