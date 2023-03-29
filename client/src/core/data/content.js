@@ -1,0 +1,38 @@
+export const Data = [
+    {
+        id:1,
+        name:'audio1',
+        description:'gf',
+        image:'https://i.pinimg.com/564x/a7/ba/c7/a7bac7aa754f0d316dbbebeb347aec8f.jpg'
+    },
+    {
+        id:2,
+        name:'audio2',
+        description:'ss',
+        image:'https://i.pinimg.com/564x/a7/ba/c7/a7bac7aa754f0d316dbbebeb347aec8f.jpg'
+    } ,
+    {
+        id:3,
+        name:'audio3',
+        description:'l',
+        image:'https://i.pinimg.com/564x/a7/ba/c7/a7bac7aa754f0d316dbbebeb347aec8f.jpg'
+    },
+    {
+        id:4,
+        name:'audio4',
+        description:'mm',
+        image:'https://i.pinimg.com/564x/a7/ba/c7/a7bac7aa754f0d316dbbebeb347aec8f.jpg'
+    },
+    {
+        id:5,
+        name:'audio5',
+        description:'r',
+        image:'https://i.pinimg.com/564x/a7/ba/c7/a7bac7aa754f0d316dbbebeb347aec8f.jpg'
+    },
+    {
+        id:6,
+        name:'audio6',
+        description:'g',
+        image:'https://i.pinimg.com/564x/a7/ba/c7/a7bac7aa754f0d316dbbebeb347aec8f.jpg'
+    }
+]

@@ -1,0 +1,84 @@
+.cover {
+  background-color: antiquewhite;
+  width: 30em;
+  height: 35em;
+  position: center;
+  border-radius: 1em;
+  box-shadow: 0 0.188em 1.55em rgb(156, 156, 156);
+  display: flex;
+  flex-direction: column;
+ align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+  
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+ 
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.success {
+  color: green;
+  margin-bottom: 10px;
+}
+button[type="fbutton"] {
+  background-color:rgb(0, 170, 255);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="fbutton"]:hover {
+  background-color:#18abd0;
+}
+button[type="gbutton"] {
+  background-color: #e70d0d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="gbutton"]:hover {
+  background-color: #f65c09;
+}
