@@ -4,29 +4,29 @@ const questions = [
   {
     questionText: 'What is 1+1?',
     answerOptions: [
-      { answerText: '4', isCorrect: false },
-      { answerText: '2', isCorrect: true },
+      { answerText: '4', isCorrect: 0 },
+      { answerText: '2', isCorrect: 1 },
     ],
   },
   {
     questionText: 'How many pyramids are in giza?',
     answerOptions: [
-      { answerText: '387', isCorrect: false },
-      { answerText: '3', isCorrect: true },
+      { answerText: '387', isCorrect: 0 },
+      { answerText: '3', isCorrect: 1 },
     ],
   },
   {
     questionText: 'What my name',
     answerOptions: [
-      { answerText: 'Hana', isCorrect: true },
-      { answerText: 'tom', isCorrect: false },
+      { answerText: 'Hana', isCorrect: 1 },
+      { answerText: 'tom', isCorrect: 0 },
     ],
   },
 ];
 
 export const ProductInfoPage = () => {
   const [userAnswers, setUserAnswers] = useState([]);
-  const [showScore, setShowScore] = useState(false);
+  const [showScore, setShowScore] = useState(0);
   const [score, setScore] = useState(0);
 
   const handleAnswerOptionClick = (answerIndex, questionIndex) => {
@@ -62,7 +62,7 @@ export const ProductInfoPage = () => {
       }
     });
     setScore(newScore);
-    setShowScore(true);
+    setShowScore(1);
   };
   
   
@@ -81,7 +81,7 @@ export const ProductInfoPage = () => {
           showScore && answerOption.isCorrect ? 'correct' : ''
         } ${
           showScore &&
-          answerOption.isCorrect === false &&
+          answerOption.isCorrect === 0 &&
           userAnswers[questionIndex] === answerIndex
             ? 'wrong'
             : ''

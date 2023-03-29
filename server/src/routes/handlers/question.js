@@ -1,4 +1,4 @@
-import express from "express";
+import express, { text } from "express";
 import { Question } from "../../models/Question.js";
 import auth from "../../middleware/auth.js";
 import adminAuth from "../../middleware/adminAuth.js";
@@ -100,3 +100,6 @@ questionRoute.get("/get/:id", getQuestion);
 questionRoute.post("/create",auth,adminAuth,upload.single("audioFile"), createQuestion);
 questionRoute.put("/updateExam/:id", updateQuestion);
 questionRoute.delete("/delete/:id", auth, adminAuth, deleteQuestion);
+
+
+

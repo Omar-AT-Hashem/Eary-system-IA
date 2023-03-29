@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     //nesting routes
     children:[
         {
-          path: "",
+          path: "/",
           element: <ProductList/>,
         },
         {
