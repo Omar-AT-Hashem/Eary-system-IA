@@ -97,6 +97,6 @@ const updateQuestion = async (req, res) => {
 
 questionRoute.get("/index", index);
 questionRoute.get("/get/:id", getQuestion);
-questionRoute.post("/create",auth,adminAuth,upload.single("audioFile"),createQuestion);
+questionRoute.post("/create",auth,adminAuth,upload.single("audioFile"), createQuestion);
 questionRoute.put("/updateExam/:id", updateQuestion);
 questionRoute.delete("/delete/:id", auth, adminAuth, deleteQuestion);

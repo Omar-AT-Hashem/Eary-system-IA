@@ -30,8 +30,10 @@ const createExam = async (req, res) => {
   try {
     const { questionIDs} = req.body;
     const userID = req.headers.userid
+    // creates the exam
     const result = await exam.createExam(userID);
     const examID = result.insertId;
+    //links the exam questions to the exam
     await exam.createExamQuestions(examID, questionIDs)
     res.status(201).json({message:"Exam created"});
   } catch (err) {

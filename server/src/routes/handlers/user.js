@@ -38,17 +38,6 @@ const getInActiveUsers = async (req, res) => {
   }
 };
 
-//------ possibly going to be removed and displaced with register
-const createUser = async (req, res) => {
-  try {
-    const { username, email, phone, password } = req.body;
-    const result = await user.createUser(username, email, phone, password);
-    res.status(201).send("user created");
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-    throw err;
-  }
-};
 
 const deleteUser = async (req, res) => {
   try {
@@ -113,7 +102,6 @@ const addToHistory = async (req, res) => {
 userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
 userRoute.get("/get-in-active", auth, adminAuth, getInActiveUsers);
-userRoute.post("/create", createUser);
 userRoute.post("/add-to-history",addToHistory)
 userRoute.put("/update-data/:id", updateUserData);
 userRoute.put("/update-password/:id", updateUserPassword);
