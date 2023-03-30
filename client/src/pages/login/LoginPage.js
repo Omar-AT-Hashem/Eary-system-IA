@@ -1,4 +1,5 @@
 import React,{useState, useEffect} from "react";
+import { apiHandler } from "./apiHandler";
 import './forms.css';
 export const LoginPage =( ) => {
     const [loginForm, setLoginForm]=useState(
@@ -7,6 +8,8 @@ export const LoginPage =( ) => {
             password: '',
         }
     );
+
+    const api = new apiHandler
     
     const login= (event)=>{
         event.preventDefault();
@@ -18,11 +21,26 @@ export const LoginPage =( ) => {
         setTimeout(() => showPopup("hide"), 3000)
     }
 
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        let response = await api.login(loginForm)
+        console.log(response);
+        localStorage.setItem("userID", response.data.userData.id)
+        localStorage.setItem("token", response.data.userData.token)
+        localStorage.setItem("isActive", response.data.userData.isActive)
+        localStorage.setItem("isAdmin", response.data.userData.isAdmin)
+        localStorage.setItem("username", response.data.userData.username)
+        localStorage.setItem("phone", response.data.userData.phone)
+        localStorage.setItem("email", response.data.userData.email)
+        console.log(localStorage.getItem("isActive"))
+      }
+
     return (
     
         <div className = "cover" >
       
-        <form onSubmit={(e)=> login(e)}>
+        <form onSubmit={handleSubmit}>
         <h1 style={{textAlign:"center"}}>Login</h1>
             <div>
             <label for="email">Email</label>

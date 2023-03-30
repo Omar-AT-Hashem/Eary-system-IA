@@ -60,9 +60,9 @@ export class Question {
   createResponses = async (questionID, ...responses) => {
     try {
       const sql =
-        "INSERT INTO questionresponses (questionID, text, isCorrect) VALUES (?,?,0)";
+        "INSERT INTO questionresponses (questionID, text, isCorrect) VALUES (?,?,?)";
       responses.forEach(async (response) => {
-        const values = [questionID, response];
+        const values = [questionID, response.response, response.iscorrect];
         await conn.awaitQuery(sql, values);
       });
     } catch (err) {
@@ -80,4 +80,13 @@ export class Question {
       throw err;
     }
   };
+  getQuestionSettings = async () => {
+    try {
+      const sql = "SELECT id, setting FROM questions";
+      const result = await conn.awaitQuery(sql);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
 }

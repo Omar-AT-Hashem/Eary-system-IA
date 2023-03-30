@@ -126,6 +126,6 @@ export class User {
     } catch (err) {
       throw err;
     }
-
   }
+  
 }

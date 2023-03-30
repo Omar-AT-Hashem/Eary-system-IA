@@ -1,14 +1,23 @@
 import React,{useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom"
+import { apiHandler } from "./apiHandler";
 import  './forms.css';
+
+
 export const SignupPage =( ) => {
   <title>Sign Up Page</title>
   const [SignupForm, setSignupForm]=useState(
-      {   name: '',
+      {   username: '',
           email: '',
+          phone: '',
           password: '',
           confirmPassword:'',
       }
   );
+
+  const navigate = useNavigate()
+
+  const api = new apiHandler
   const [errors, setErrors] = useState({});
   const Signup= (event)=>{
     event.preventDefault();
@@ -26,25 +35,41 @@ const popup = () => {
     setTimeout(() => showPopup("hide"), 3000)
 }
 
+const handleSubmit = async (event) => {
+  event.preventDefault()
+  let response = await api.registerUser(SignupForm)
+  console.log(response);
+  if(response.status == 201){
+    navigate("/login")
+  }
+}
+
 return (
     
   <div className = "cover" >
   <h1>Signup</h1>
-  <form onSubmit={(e)=> Signup(e)}>
+  <form onSubmit={handleSubmit}>
   <div>
-      <label for="name">Name</label>
-      <input id="name" name='name' placeholder='plaese enter your name' type="text" 
+      <label for="username">Username</label>
+      <input id="username" name='username' placeholder='please enter your name' type="text" 
       required
-      value={SignupForm.name}
+      value={SignupForm.username}
        onChange={(event)=>
-          setSignupForm({...SignupForm, name:event.target.value})
+          setSignupForm({...SignupForm, username:event.target.value})
       }
       />
       </div>
-   
 
-
-
+      <div>
+      <label for="phone">Phone</label>
+      <input id="phone" name='phone' placeholder='please enter your name' type="text" 
+      required
+      value={SignupForm.phone}
+       onChange={(event)=>
+          setSignupForm({...SignupForm, phone:event.target.value})
+      }
+      />
+      </div>
 
       <div>
       <label for="email">Email</label>

@@ -1,4 +1,4 @@
-import express, { text } from "express";
+import express, { json, text } from "express";
 import { Question } from "../../models/Question.js";
 import auth from "../../middleware/auth.js";
 import adminAuth from "../../middleware/adminAuth.js";
@@ -13,6 +13,9 @@ export const uploadPath = path.join(
   "..",
   "..",
   "..",
+  "..",
+  "client",
+  "public",
   "audioFiles",
   "/"
 );
@@ -58,12 +61,15 @@ const createQuestion = async (req, res) => {
   try {
     const audioFile = req.file;
     const filePath = "/audioFiles/" + audioFile.originalname
-    const { text, setting, res1, res2, res3, res4 } = req.body;
+    let { text, setting, res1, res2, res3} = req.body;
     //creates the question
+    res1 = JSON.parse(res1)
+    res2 = JSON.parse(res2)
+    res3 = JSON.parse(res3)
     const result = await question.createQuestion(filePath, text, setting);
     const questionID = result.insertId;
     //creates the responses for the question
-    await question.createResponses(questionID, res1, res2, res3, res4);
+    await question.createResponses(questionID, res1, res2, res3);
     res.status(200).json({ message: "question created" });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -93,11 +99,24 @@ const updateQuestion = async (req, res) => {
   }
 };
 
-// localhost:5000/api/question
+const getQuestionSettings = async (req, res) => {
+  try {
+    const result = await question.getQuestionSettings();
+    if(result.length > 0){
+    res.status(200).json(result);
+    }else if (result.length == 0){
+      res.status(404).json({message: "No available questions"})
+    }
+  } catch (err) {
+    res.status(404).json({message: err.message})
+}
+}
 
+// localhost:5000/api/question
 questionRoute.get("/index", index);
+questionRoute.get("/get-settings", getQuestionSettings);
 questionRoute.get("/get/:id", getQuestion);
-questionRoute.post("/create",auth,adminAuth,upload.single("audioFile"), createQuestion);
+questionRoute.post("/create", upload.single("audioFile"), createQuestion);
 questionRoute.put("/updateExam/:id", updateQuestion);
 questionRoute.delete("/delete/:id", auth, adminAuth, deleteQuestion);
 
