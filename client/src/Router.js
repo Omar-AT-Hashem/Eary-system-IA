@@ -7,6 +7,8 @@ import { NotFound } from "./shared/NotFound";
 import {LoginPage} from "./pages/login/LoginPage";
 import { ProductInfoPage } from "./pages/products/ProductInfoPage";
 import { SignupPage } from "./pages/signup/SignupPage";
+import { QuestionEditingList } from "./pages/questionsEditingList/QuestionsEditingList";
+
 export const router = createBrowserRouter([
   { path:'',
     element: <App/>,
@@ -35,6 +37,11 @@ export const router = createBrowserRouter([
           {
             path: "/signup",
             element: <SignupPage/>,
+          },
+
+          {
+            path: "/question-editing",
+            element: <QuestionEditingList/>,
           },
 
           {

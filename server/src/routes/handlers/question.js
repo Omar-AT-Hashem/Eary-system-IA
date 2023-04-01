@@ -60,12 +60,12 @@ const getQuestion = async (req, res) => {
 const createQuestion = async (req, res) => {
   try {
     const audioFile = req.file;
-    const filePath = "/audioFiles/" + audioFile.originalname
-    let { text, setting, res1, res2, res3} = req.body;
+    const filePath = "/audioFiles/" + audioFile.originalname;
+    let { text, setting, res1, res2, res3 } = req.body;
     //creates the question
-    res1 = JSON.parse(res1)
-    res2 = JSON.parse(res2)
-    res3 = JSON.parse(res3)
+    res1 = JSON.parse(res1);
+    res2 = JSON.parse(res2);
+    res3 = JSON.parse(res3);
     const result = await question.createQuestion(filePath, text, setting);
     const questionID = result.insertId;
     //creates the responses for the question
@@ -86,14 +86,12 @@ const deleteQuestion = async (req, res) => {
   }
 };
 
-// TODO - implement update question
 const updateQuestion = async (req, res) => {
   try {
     const id = req.params.id;
-    await exam.getExam(id);
-    let { name } = req.body;
-    await exam.updateExam(id, name);
-    res.status(200).json({ message: "Exam updated" });
+    let { setting, text } = req.body;
+    await question.updateQuestion(id, setting, text);
+    res.status(200).json({ message: "Question updated" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -102,23 +100,46 @@ const updateQuestion = async (req, res) => {
 const getQuestionSettings = async (req, res) => {
   try {
     const result = await question.getQuestionSettings();
-    if(result.length > 0){
-    res.status(200).json(result);
-    }else if (result.length == 0){
-      res.status(404).json({message: "No available questions"})
+    if (result.length > 0) {
+      res.status(200).json(result);
+    } else if (result.length == 0) {
+      res.status(404).json({ message: "No available questions" });
     }
   } catch (err) {
-    res.status(404).json({message: err.message})
-}
-}
+    res.status(404).json({ message: err.message });
+  }
+};
+
+const getQuestionResponses = async (req, res) => {
+  try {
+    const { questionIDs } = req.body;
+    const result = await question.getQuestionResponses(...questionIDs);
+    if (result.length > 0) {
+      res.status(200).json(result);
+    } else if (result.length == 0) {
+      res.status(404).json({ message: "No available responses" });
+    }
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
+
+const updateQuestionRespones = async (req, res) => {
+  try {
+    const {responses} = req.body;
+    await question.updateQuestionRespones(responses);
+    res.status(200).json({ message: "Respones Updated" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
 
 // localhost:5000/api/question
 questionRoute.get("/index", index);
 questionRoute.get("/get-settings", getQuestionSettings);
 questionRoute.get("/get/:id", getQuestion);
 questionRoute.post("/create", upload.single("audioFile"), createQuestion);
-questionRoute.put("/updateExam/:id", updateQuestion);
-questionRoute.delete("/delete/:id", auth, adminAuth, deleteQuestion);
-
-
-
+questionRoute.post("/get-responses", getQuestionResponses);
+questionRoute.put("/update/:id", updateQuestion);
+questionRoute.put("/update-responses", updateQuestionRespones);
+questionRoute.delete("/delete/:id", deleteQuestion);

@@ -46,10 +46,10 @@ export class Question {
     }
   };
 
-  updateExam = async (name, id) => {
+  updateQuestion = async (id, setting, text) => {
     try {
-      const sql = "UPDATE exams SET name = ?, WHERE id = ?";
-      const values = [name, id];
+      const sql = "UPDATE questions SET setting = ?, text = ? WHERE id = ?";
+      const values = [setting,text, id];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {
@@ -85,6 +85,32 @@ export class Question {
       const sql = "SELECT id, setting FROM questions";
       const result = await conn.awaitQuery(sql);
       return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+  getQuestionResponses = async (...questionIDs) => {
+    try {
+      const sql = "SELECT * FROM questionresponses WHERE questionID = ?";
+      const result = await Promise.all(questionIDs.map(async (questionID) => {
+        let values = [questionID];
+        const result = await conn.awaitQuery(sql, values);
+        return result;
+      }));
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  updateQuestionRespones = async (responses) => {
+    try {
+      const sql = "UPDATE questionresponses SET text = ?, isCorrect = ? WHERE id = ?";
+      responses.forEach(async (response) => { 
+        let {text, isCorrect, id} = response
+        let values = [text, isCorrect, id];
+        await conn.awaitQuery(sql, values);
+      })
     } catch (err) {
       throw err;
     }

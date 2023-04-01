@@ -13,7 +13,6 @@ const api = axios.create({
 })
 export class apiHandler {
 
-
     async createQuestion(question)  {
         let response =  await api.post('/create', question);
         return response
