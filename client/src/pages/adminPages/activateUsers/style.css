@@ -1,0 +1,7 @@
+.activateUsers-single-user-data {
+    display: flex;
+    flex-direction: row;
+}
+.activateUsers-single-user-data div {
+    margin: 5px;
+}

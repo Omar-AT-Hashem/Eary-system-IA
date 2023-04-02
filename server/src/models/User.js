@@ -71,11 +71,11 @@ export class User {
     }
   };
 
-  updateUserData = async (id, username, email, phone) => {
+  updateUserData = async (id, username, email, phone, isActive) => {
     try {
       const sql =
-        "UPDATE users SET username = ?, email = ?, phone = ? WHERE id = ?";
-      const values = [username, email, phone, id];
+        "UPDATE users SET username = ?, email = ?, phone = ?, isActive = ? WHERE id = ?";
+      const values = [username, email, phone, isActive, id];
       const result = await conn.awaitQuery(sql, values);
       return result;
     } catch (err) {

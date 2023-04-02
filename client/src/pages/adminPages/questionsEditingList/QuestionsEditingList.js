@@ -6,7 +6,7 @@ export function QuestionEditingList() {
   const [questions, setQuestions] = useState([]);
   const [responses, setResponses] = useState();
   const [rerenderTrigger, setRerenderTrigger] = useState();
-  const [statusCode, setStatusCode] = useState()
+  const [statusCode, setStatusCode] = useState();
   const api = new apiHandler();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export function QuestionEditingList() {
     async function fetchData() {
       const returnedQuestions = await api.getQuestions();
       setQuestions(returnedQuestions.data);
-      setStatusCode(returnedQuestions.status)
+      setStatusCode(returnedQuestions.status);
       questionIDs = returnedQuestions.data.map((question) => {
         return question.id;
       });
@@ -66,7 +66,7 @@ export function QuestionEditingList() {
 
     setQuestions(currentQuestions);
   };
-  
+
   const handleDelete = async (e, questionID) => {
     let currentQuestions = questions;
     const result = api.deleteQuestion(questionID);
@@ -93,19 +93,18 @@ export function QuestionEditingList() {
     let result2 = await api.updateResponses(relatedResponses);
     console.log(result2);
   };
-  if (statusCode == 404){
+  if (statusCode == 404) {
     return (
       <div className="questionEditing-background">
-      <h1 className="questionEditing-loading">No questions availabe</h1>
+        <h1 className="questionEditing-loading">No questions availabe</h1>
       </div>
-    )
-  }
-  else if (!questions || !responses) {
+    );
+  } else if (!questions || !responses) {
     return (
-    <div className="questionEditing-background">
-      <h1 className="questionEditing-loading">Loading...</h1>
-  </div>
-      );
+      <div className="questionEditing-background">
+        <h1 className="questionEditing-loading">Loading...</h1>
+      </div>
+    );
   } else {
     return (
       <>

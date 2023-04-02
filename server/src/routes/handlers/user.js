@@ -54,7 +54,8 @@ const updateUserData = async (req, res) => {
   try {
     const id = req.params.id;
     const myUser = await user.getUser(id);
-    let { username, email, phone } = req.body;
+    let { username, email, phone, isActive } = req.body;
+    console.log(req.body);
 
     if (!username) {
       username = myUser.username;
@@ -65,8 +66,10 @@ const updateUserData = async (req, res) => {
     if (!phone) {
       phone = myUser.phone;
     }
-
-    await user.updateUserData(id, username, email, phone);
+    if (!isActive) {
+      isActive = myUser.isActive;
+    }
+    await user.updateUserData(id, username, email, phone, isActive);
     res.status(200).json({ message: "user updated" });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -101,8 +104,8 @@ const addToHistory = async (req, res) => {
 
 userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
-userRoute.get("/get-in-active", auth, adminAuth, getInActiveUsers);
+userRoute.get("/get-in-active", getInActiveUsers);
 userRoute.post("/add-to-history",addToHistory)
 userRoute.put("/update-data/:id", updateUserData);
 userRoute.put("/update-password/:id", updateUserPassword);
-userRoute.delete("/delete/:id", auth, adminAuth, deleteUser);
+userRoute.delete("/delete/:id", deleteUser);

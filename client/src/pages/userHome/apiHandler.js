@@ -7,6 +7,8 @@ const api = axios.create({
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS', 
         'Access-Control-Allow-Headers': 'append,delete,entries,foreach,get,has,keys,set,values,Authorization', 
         'Content-Type': 'application/json',
+        Authorization : `Bearer ${localStorage.getItem("token")}`,
+        'userid': `${localStorage.getItem("userID")}`,
     }
 })
 

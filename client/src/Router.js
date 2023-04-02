@@ -1,70 +1,80 @@
 import { createBrowserRouter } from "react-router-dom";
 import { ProductList } from "./pages/products/ProductList";
-import { AboutPage } from "./pages/about/AboutPage";
-import { Contact } from "./pages/contact/Contact";
-import {App} from "./App";
+import { AboutPage } from "./pages/landingPages/about/AboutPage";
+import { Contact } from "./pages/landingPages/contact/Contact";
+import { App } from "./App";
 import { NotFound } from "./shared/NotFound";
-import {LoginPage} from "./pages/login/LoginPage";
+import { LoginPage } from "./pages/landingPages/login/LoginPage";
 import { ProductInfoPage } from "./pages/products/ProductInfoPage";
-import { SignupPage } from "./pages/signup/SignupPage";
-import { QuestionEditingList } from "./pages/questionsEditingList/QuestionsEditingList";
-import QuestionForm from "./pages/questionForm/QuestionForm";
+import { SignupPage } from "./pages/landingPages/signup/SignupPage";
+import { QuestionEditingList } from "./pages/adminPages/questionsEditingList/QuestionsEditingList";
+import QuestionForm from "./pages/adminPages/questionForm/QuestionForm";
 import InActiveUser from "./pages/userHome/InActiveUser";
 import ActiveUserHome from "./pages/userHome/ActiveUserHome";
-import AdminHome from "./pages/adminHome/AdminHome";
+import AdminHome from "./pages/adminPages/adminHome/AdminHome";
+import ActivateUsers from "./pages/adminPages/activateUsers/ActivateUsers";
 
 export const router = createBrowserRouter([
-  { path:'',
-    element: <App/>,
+  {
+    path: "",
+    element: <App />,
     //nesting routes
-    children:[
-        {
-          path: "/",
-          element: <ProductList/>,
-        },
-        {
-          path: "/product-info/:id",
-          element: <ProductInfoPage/>,
-        },
-        {
-            path: "/about",
-            element: <AboutPage/>,
-          },
-          {
-            path: "/contact",
-            element: <Contact/>,
-          },
-          {
-            path: "/login",
-            element: <LoginPage/>,
-          },
-          {
-            path: "/signup",
-            element: <SignupPage/>,
-          },
+    children: [
+      {
+        path: "/",
+        element: <ProductList />,
+      },
+      {
+        path: "/product-info/:id",
+        element: <ProductInfoPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
+      },
 
-          {
-            path: "/question-editing",
-            element: <QuestionEditingList/>,
-          },
-          {
-            path: "/question-form",
-            element: <QuestionForm />,
-          },
-          {
-            path: "/:username/pending",
-            element: <InActiveUser />,
-          },
-          {
-            path: "/:username",
-            element: <ActiveUserHome/>,
-          },
-          {
-            path: "/:username/admin",
-            element: <AdminHome />,
-          },
-          {
-            //wild card route
-            path: '*',
-            element: <NotFound/>,
-          }, ]},]);
+      {
+        path: "/:username/admin/question-editing",
+        element: <QuestionEditingList />,
+      },
+      {
+        path: "/:username/admin/question-form",
+        element: <QuestionForm />,
+      },
+      {
+        path: "/:username/admin",
+        element: <AdminHome />,
+      },
+      {
+        path: "/:username/admin/activate-users",
+        element: <ActivateUsers />,
+      },
+      {
+        path: "/:username/pending",
+        element: <InActiveUser />,
+      },
+      {
+        path: "/:username",
+        element: <ActiveUserHome />,
+      },
+     
+      {
+        //wild card route
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
