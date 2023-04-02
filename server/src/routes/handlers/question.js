@@ -38,7 +38,11 @@ const question = new Question();
 const index = async (req, res) => {
   try {
     const result = await question.index();
+    if (result.length > 0){
     res.status(200).json(result);
+  }else {
+    res.status(404).json({ message: "Not found" });
+  }
   } catch (err) {
     res.status(404).json({ message: "Not found" });
     throw err;

@@ -1,6 +1,7 @@
 .questionEditing-background{
     background-color: #29335C;
     font-family: sans-serif;
+    height: 100vh;
 }
 .questionEditing-container{
     width: 65vw;
@@ -98,6 +99,18 @@
 
 .questionEditing-update-button {
     background-color: green;
+}
+
+.questionEditing-loading {
+position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
+
+.questionEditing-header{
+    text-align: center;
+    color: #EEEEEE;
 }
 
 

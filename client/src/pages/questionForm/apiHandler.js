@@ -14,8 +14,12 @@ const api = axios.create({
 export class apiHandler {
 
     async createQuestion(question)  {
+        try{
         let response =  await api.post('/create', question);
         return response
+        }catch(err){
+            return err.response; 
+        }
     }
 
 }

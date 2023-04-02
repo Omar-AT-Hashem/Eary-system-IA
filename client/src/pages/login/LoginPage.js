@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { apiHandler } from "./apiHandler";
+import { useNavigate, useParams } from "react-router-dom";
+
 import "./forms.css";
 export const LoginPage = () => {
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
   });
+  const [statusCode, setStatusCode] = useState()
 
   const api = new apiHandler();
-
-  const login = (event) => {
-    event.preventDefault();
-  };
+  //const {username} = useParams()
+  const navigate = useNavigate()
+  
   const [popupStyle, showPopup] = useState("hide");
   const popup = () => {
     showPopup("login-popup");
@@ -21,16 +23,26 @@ export const LoginPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     let response = await api.login(loginForm);
+    setStatusCode(response.status)
     console.log(response);
-    localStorage.setItem("userID", response.data.userData.id);
-    localStorage.setItem("token", response.data.userData.token);
-    localStorage.setItem("isActive", response.data.userData.isActive);
-    localStorage.setItem("isAdmin", response.data.userData.isAdmin);
-    localStorage.setItem("username", response.data.userData.username);
-    localStorage.setItem("phone", response.data.userData.phone);
-    localStorage.setItem("email", response.data.userData.email);
-    console.log(localStorage.getItem("isActive"));
-  };
+    const {id, token, isActive, isAdmin, username, phone, email} = response.data.userData
+    localStorage.setItem("userID", id);
+    localStorage.setItem("token", token);
+    localStorage.setItem("isActive", isActive);
+    localStorage.setItem("isAdmin", isAdmin);
+    localStorage.setItem("username", username);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("email", email);
+    if(isActive == 0){
+      navigate(`/${username}/pending`)
+    }else if(isActive == 1){
+      if(isAdmin == 1){
+      navigate(`/${username}/admin`)
+      }else{
+        navigate(`/${username}`)
+      }
+    }
+  }
 
   return (
     <div className="cover">

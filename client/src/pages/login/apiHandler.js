@@ -17,7 +17,7 @@ export class apiHandler {
         let response =  await api.post('/', form);
         return response
         }catch(err){
-            throw err
+            return err.response; 
         }
     }
 }

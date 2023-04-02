@@ -13,7 +13,11 @@ export class apiHandler {
 
 
     async registerUser(registrationForm)  {
+        try{
         let response =  await api.post('/', registrationForm);
         return response
+    } catch(err){
+        return err.response; 
     }
+}
 }

@@ -6,6 +6,7 @@ export function QuestionEditingList() {
   const [questions, setQuestions] = useState([]);
   const [responses, setResponses] = useState();
   const [rerenderTrigger, setRerenderTrigger] = useState();
+  const [statusCode, setStatusCode] = useState()
   const api = new apiHandler();
 
   useEffect(() => {
@@ -13,10 +14,12 @@ export function QuestionEditingList() {
     async function fetchData() {
       const returnedQuestions = await api.getQuestions();
       setQuestions(returnedQuestions.data);
+      setStatusCode(returnedQuestions.status)
       questionIDs = returnedQuestions.data.map((question) => {
         return question.id;
       });
       const returnedResponses = await api.getResponses(questionIDs);
+      console.log(returnedResponses);
       setResponses(returnedResponses.data);
     }
 
@@ -25,6 +28,7 @@ export function QuestionEditingList() {
 
   console.log(questions);
   console.log(responses);
+  console.log(statusCode);
 
   const handleResponseChange = (e, index1, index2) => {
     setResponses((values) => {
@@ -62,14 +66,14 @@ export function QuestionEditingList() {
 
     setQuestions(currentQuestions);
   };
-
+  
   const handleDelete = async (e, questionID) => {
     let currentQuestions = questions;
     const result = api.deleteQuestion(questionID);
     currentQuestions.splice(e.target.id, 1);
     console.log(result);
     setQuestions(currentQuestions);
-    setRerenderTrigger("t");
+    setRerenderTrigger(e.target.id);
   };
 
   const handleUpdate = async (e, questionID, questionIndex) => {
@@ -89,14 +93,24 @@ export function QuestionEditingList() {
     let result2 = await api.updateResponses(relatedResponses);
     console.log(result2);
   };
-
-  if (!questions || !responses) {
-    return <h1>Loading...</h1>;
+  if (statusCode == 404){
+    return (
+      <div className="questionEditing-background">
+      <h1 className="questionEditing-loading">No questions availabe</h1>
+      </div>
+    )
+  }
+  else if (!questions || !responses) {
+    return (
+    <div className="questionEditing-background">
+      <h1 className="questionEditing-loading">Loading...</h1>
+  </div>
+      );
   } else {
     return (
       <>
         <div className="questionEditing-background">
-          <h1>component</h1>
+          <h1 className="questionEditing-header">Edit questions</h1>
           <div className="questionEditing-container">
             {questions.map((question, questionIndex) => (
               <>

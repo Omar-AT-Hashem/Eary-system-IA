@@ -18,7 +18,7 @@ export class apiHandler {
         let response =  await api.get('/index');
         return response
         }catch(err){
-            throw err
+            return err.response;   
         }
     }
     async getResponses(questionIDs)  {
@@ -26,7 +26,7 @@ export class apiHandler {
         let response =  await api.post('/get-responses', {questionIDs: questionIDs});
         return response
         }catch(err){
-            throw err
+            return err.response; 
         }
     }
     
@@ -35,7 +35,7 @@ export class apiHandler {
         let response =  await api.put(`/update/${questionID}`, question);
         return response
         }catch(err){
-            throw err
+            return err.response; 
         }
     }
 
@@ -44,7 +44,7 @@ export class apiHandler {
         let response =  await api.delete(`/delete/${questionID}`);
         return response
         }catch(err){
-            throw err
+            return err.response; 
         }
     }
 
@@ -53,7 +53,7 @@ export class apiHandler {
             let response =  await api.put('/update-responses', {responses: relatedResponses});
             return response
             }catch(err){
-                throw err
+                return err.response; 
             }
     }
     
