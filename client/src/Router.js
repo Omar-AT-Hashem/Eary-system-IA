@@ -9,8 +9,8 @@ import { ProductInfoPage } from "./pages/products/ProductInfoPage";
 import { SignupPage } from "./pages/landingPages/signup/SignupPage";
 import { QuestionEditingList } from "./pages/adminPages/questionsEditingList/QuestionsEditingList";
 import QuestionForm from "./pages/adminPages/questionForm/QuestionForm";
-import InActiveUser from "./pages/userHome/InActiveUser";
-import ActiveUserHome from "./pages/userHome/ActiveUserHome";
+import InActiveUser from "./pages/userPages/userHome/InActiveUser";
+import ActiveUserHome from "./pages/userPages/userHome/ActiveUserHome";
 import AdminHome from "./pages/adminPages/adminHome/AdminHome";
 import ActivateUsers from "./pages/adminPages/activateUsers/ActivateUsers";
 
