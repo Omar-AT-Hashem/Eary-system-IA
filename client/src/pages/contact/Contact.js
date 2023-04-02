@@ -24,11 +24,11 @@ const contactUs =(event) =>{
     return (
         <div 
              >
-        <h1>contact us</h1>
-        <form onSubmit={(e)=> contactUs(e)}>
+        <h1 className='contact-h1'>contact us</h1>
+        <form className='contact-form' onSubmit={(e)=> contactUs(e)}>
             <div>
-            <label for="email">Email</label>
-            <input id="email" placeholder='plaese enter your email' type="email" 
+            <label className='contact-label' for="email">Email</label>
+            <input className='contact-email' id="email" placeholder='plaese enter your email' type="email" 
             required
             ref={(ref)=>contactUsForm.current[0]=ref}
             //value={contactUsForm.email} 
@@ -39,8 +39,8 @@ const contactUs =(event) =>{
             </div>
             <br></br>
             <div>
-            <label for="message">message</label>
-            <textarea rows={7} id="message" placeholder='please enter your message' type="text" 
+            <label className='contact-label' for="message">message</label>
+            <textarea className='contact-textarea' rows={7} id="message" placeholder='please enter your message' type="text" 
            required
            ref={(ref)=>contactUsForm.current[1]=ref}
            //value={contactUsForm.message}
@@ -49,7 +49,7 @@ const contactUs =(event) =>{
            // }
             />
             </div>
-            <button>submit</button>
+            <button className='contact-button'>submit</button>
 
         </form>
         </div>

@@ -1,0 +1,103 @@
+.questionEditing-background{
+    background-color: #29335C;
+    font-family: sans-serif;
+}
+.questionEditing-container{
+    width: 65vw;
+    min-width:320px;
+    padding: 40px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+           
+}
+
+.questionEditing-radio {
+        box-sizing: border-box;
+        appearance: none;
+        background: white;
+        outline: 1px solid #333;
+        border: 3px solid white;
+        width: 30px;
+        height: 30px 
+}
+
+.questionEditing-radio:checked {
+    background: #29335C;
+}
+.questionEditing-response-radio-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    padding: 5px;
+}
+.questionEditing-question,
+.questionEditing-question-setting,
+.quesionEditing-response{
+    height: 30px;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.questionEditing-question,
+.questionEditing-question-setting{
+    margin: 20px;
+    width: 280px;
+}
+
+.questionEditing-question:focus,
+.questionEditing-question-setting:focus,
+.quesionEditing-response:focus {
+    outline-color: #29335C;
+}
+
+.quesionEditing-response {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.questionEditing-question-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    background-color: #82272f ;
+    width: 70%;
+    max-width: 500px;
+    min-width: 300px;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0px 0px 20px 10px  rgba(0, 0, 0, 0.6);
+}
+
+.questionEditing-button-container {
+    width: 80%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.questionEditing-delete-button, 
+.questionEditing-update-button {
+    height: 30px;
+    border-radius: 5px;
+    width: 70px;
+    border: none;
+    color: #EEEEEE;
+}
+
+.questionEditing-delete-button{
+    background-color: red;
+} 
+
+.questionEditing-update-button {
+    background-color: green;
+}
+
+

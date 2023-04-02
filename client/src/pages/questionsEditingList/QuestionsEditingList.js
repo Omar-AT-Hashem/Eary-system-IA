@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiHandler } from "./apiHandler";
+import "./style.css";
 
 export function QuestionEditingList() {
   const [questions, setQuestions] = useState([]);
@@ -94,79 +95,93 @@ export function QuestionEditingList() {
   } else {
     return (
       <>
-        <h1>component</h1>
+        <div className="questionEditing-background">
+          <h1>component</h1>
+          <div className="questionEditing-container">
+            {questions.map((question, questionIndex) => (
+              <>
+                <div className="questionEditing-question-card">
+                  <audio controls>
+                    <source src={question.audioFile} />
+                  </audio>
+                  <input
+                    className="questionEditing-question-setting"
+                    id={question.id}
+                    value={question.setting}
+                    type="text"
+                    name="setting"
+                    onChange={(e) => {
+                      handleQuestionChange(e, questionIndex);
+                    }}
+                  />
 
-        {questions.map((question, questionIndex) => (
-          <>
-            <input
-              id={question.id}
-              value={question.setting}
-              type="text"
-              name="setting"
-              onChange={(e) => {
-                handleQuestionChange(e, questionIndex);
-              }}
-            />
-            <audio controls>
-              <source src={question.audioFile} />
-            </audio>
-            <input
-              id={question.id}
-              value={question.text}
-              type="text"
-              name="text"
-              onChange={(e) => {
-                handleQuestionChange(e, questionIndex);
-              }}
-            />
-            {responses.map((response, index1) => {
-              return response.map((res, index2) => {
-                if (res.questionID == question.id) {
-                  return (
-                    <>
-                      <input
-                        id={res.id}
-                        type="text"
-                        name="text"
-                        value={res.text}
-                        onChange={(e) => {
-                          handleResponseChange(e, index1, index2);
-                        }}
-                      />
-                      <label>
-                        Correct:
-                        <input
-                          type="radio"
-                          name={`isCorrect-${res.id}`}
-                          value={1}
-                          checked={res.isCorrect === 1}
-                          onChange={(e) => handleRadioChange(e, index1, index2)}
-                        />
-                      </label>
-                      <br />
-                    </>
-                  );
-                }
-              });
-            })}
-            <button
-              id={questionIndex}
-              onClick={(e) => {
-                handleDelete(e, question.id);
-              }}
-            >
-              Delete
-            </button>
-            <button
-              id={questionIndex}
-              onClick={(e) => {
-                handleUpdate(e, question.id, questionIndex);
-              }}
-            >
-              Update
-            </button>
-          </>
-        ))}
+                  <input
+                    id={question.id}
+                    className="questionEditing-question"
+                    value={question.text}
+                    type="text"
+                    name="text"
+                    onChange={(e) => {
+                      handleQuestionChange(e, questionIndex);
+                    }}
+                  />
+                  {responses.map((response, index1) => {
+                    return response.map((res, index2) => {
+                      if (res.questionID == question.id) {
+                        return (
+                          <>
+                            <div className="questionEditing-response-radio-container">
+                              <input
+                                id={res.id}
+                                className="quesionEditing-response"
+                                type="text"
+                                name="text"
+                                value={res.text}
+                                onChange={(e) => {
+                                  handleResponseChange(e, index1, index2);
+                                }}
+                              />
+                              <input
+                                className="questionEditing-radio"
+                                type="radio"
+                                name={`isCorrect-${res.id}`}
+                                value={1}
+                                checked={res.isCorrect === 1}
+                                onChange={(e) =>
+                                  handleRadioChange(e, index1, index2)
+                                }
+                              />
+                            </div>
+                          </>
+                        );
+                      }
+                    });
+                  })}
+                  <div className="questionEditing-button-container">
+                    <button
+                      id={questionIndex}
+                      className="questionEditing-delete-button"
+                      onClick={(e) => {
+                        handleDelete(e, question.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      id={questionIndex}
+                      className="questionEditing-update-button"
+                      onClick={(e) => {
+                        handleUpdate(e, question.id, questionIndex);
+                      }}
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+              </>
+            ))}
+          </div>
+        </div>
       </>
     );
   }

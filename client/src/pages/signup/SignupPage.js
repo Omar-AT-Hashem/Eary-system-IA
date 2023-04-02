@@ -50,8 +50,8 @@ return (
   <h1>Signup</h1>
   <form onSubmit={handleSubmit}>
   <div>
-      <label for="username">Username</label>
-      <input id="username" name='username' placeholder='please enter your name' type="text" 
+      <label className="signup-label" for="username">Username</label>
+      <input className="signup-input" id="username" name='username' placeholder='please enter your name' type="text" 
       required
       value={SignupForm.username}
        onChange={(event)=>
@@ -61,8 +61,8 @@ return (
       </div>
 
       <div>
-      <label for="phone">Phone</label>
-      <input id="phone" name='phone' placeholder='please enter your name' type="text" 
+      <label className="signup-label" for="phone">Phone</label>
+      <input className="signup-input" id="phone" name='phone' placeholder='please enter your name' type="text" 
       required
       value={SignupForm.phone}
        onChange={(event)=>
@@ -72,8 +72,8 @@ return (
       </div>
 
       <div>
-      <label for="email">Email</label>
-      <input name='email'  id="email" placeholder='plaese enter your email' type="email" 
+      <label className="signup-label" for="email">Email</label>
+      <input className="signup-input" name='email'  id="email" placeholder='plaese enter your email' type="email" 
       required
       value={SignupForm.email}
        onChange={(event)=>
@@ -83,8 +83,8 @@ return (
       </div>
       
       <div>
-      <label for="password">password</label>
-      <input name='password' id="password" placeholder='please enter your password' type="password" 
+      <label className="signup-label" for="password">password</label>
+      <input className="signup-input" name='password' id="password" placeholder='please enter your password' type="password" 
       required
       value={SignupForm.password}
        onChange={(event)=>
@@ -97,8 +97,8 @@ return (
         )}
       
       <div>
-      <label for="confirmPassword">confirm-password</label>
-      <input  name='confirmPassword' id="confirmPassword" placeholder='please re-enter your password' type="password" 
+      <label className="signup-label" for="confirmPassword">confirm-password</label>
+      <input  className="signup-input" name='confirmPassword' id="confirmPassword" placeholder='please re-enter your password' type="password" 
       required
       value={SignupForm.confirmPassword}
        onChange={(event)=>
@@ -107,13 +107,13 @@ return (
 
    </div>
  
-      <button  style={{width:"100%"}} type='submit'>Signup</button>
+      <button className="signup-submit" type='submit'>Signup</button>
       <div className = 'alt-login' >
             <br></br>
         <p className = 'text' style={{textAlign:"center"}}> Or signup using </p>
         
-<button type="fbutton" className = 'facebook' > facebook </button>
- <button type="gbutton" className = 'google' > google </button> </div >
+<button type="fbutton" className = 'signup-fbutton' > facebook </button>
+ <button type="gbutton" className = 'signup-gbutton' > google </button> </div >
   </form>
   </div>
 
