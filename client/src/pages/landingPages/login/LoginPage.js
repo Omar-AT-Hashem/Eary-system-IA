@@ -49,7 +49,7 @@ export const LoginPage = () => {
   return (
     <>
       <LandingNavBar />
-      <div className="login-background">
+      <div className="page-background">
         <div className="login-container">
           <div className="login-cover">
             <form onSubmit={handleSubmit}>

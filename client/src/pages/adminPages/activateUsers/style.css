@@ -1,7 +1,62 @@
-.activateUsers-single-user-data {
+.activateUsers-background{
+    height: 100vh;
+}
+
+.activateUsers-background h1{
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 40px;
+}
+.activateUsers-single-user {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+    margin-bottom: 22px;
+    background-color: #fff;
+    align-items: center;
+    height: 50px;
+    width: 80vw;
+    max-width: 850px;
+    border: 1px solid black;
+    border-radius: 5px;
 }
+.activateUsers-single-user-data {
+   display: flex;
+   flex-direction: row;
+}
+
 .activateUsers-single-user-data div {
-    margin: 5px;
+    margin-left: 20px;
+}
+.activateUsers-buttons{
+    margin-right: 40px;
+    width: 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.activateUsers-activate,
+.activateUsers-reject{ 
+ width: 80px;
+height: 30px;
+border: none;
+border-radius: 3px;
+padding: 2px;
+
+}
+
+
+.activateUsers-reject{
+    background-color: rgb(205, 8, 8);
+}
+.activateUsers-activate{
+background-color: rgb(67, 173, 15);
+}
+
+.activateUsers-reject:hover,
+.activateUsers-activate:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }

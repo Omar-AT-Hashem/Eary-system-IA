@@ -13,6 +13,7 @@ import InActiveUser from "./pages/userPages/userHome/InActiveUser";
 import ActiveUserHome from "./pages/userPages/userHome/ActiveUserHome";
 import AdminHome from "./pages/adminPages/adminHome/AdminHome";
 import ActivateUsers from "./pages/adminPages/activateUsers/ActivateUsers";
+import Landing from "./pages/landingPages/landing/Landing";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <ProductList />,
+        element: <Landing />,
       },
       {
         path: "/product-info/:id",

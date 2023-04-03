@@ -21,10 +21,10 @@ export default function LandingNavBar() {
             <li>Contact us</li>
           </Link>
           <Link to={"/login"}>
-            <li>login </li>
+            <li>Login </li>
           </Link>
           <Link to={"/Signup"}>
-            <li>signup </li>
+            <li>Signup </li>
           </Link>
           <Link to={"/about"}>
             <li>About</li>

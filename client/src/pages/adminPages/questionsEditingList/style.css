@@ -1,6 +1,5 @@
 .questionEditing-background{
-    background-color: #eee;
-    font-family: sans-serif;
+    height: 100%;
 }
 .questionEditing-container{
     width: 80vw;
@@ -9,8 +8,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-           
+    align-items: center;           
 }
 
 .questionEditing-radio {

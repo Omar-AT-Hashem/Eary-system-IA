@@ -107,16 +107,16 @@ export function QuestionEditingList() {
       </div>
     );
   } else if (!questions || !responses) {
-    return (
-      <div className="questionEditing-background">
-        <h1 className="questionEditing-loading">Loading...</h1>
-      </div>
-    );
+    // return (
+    //   <div className="questionEditing-background">
+    //     <h1 className="questionEditing-loading">Loading...</h1>
+    //   </div>
+    // );
   } else {
     return (
       <>
       <AdminNavBar />
-        <div className="questionEditing-background">
+        <div className="questionEditing-background background-color">
           <h1 className="questionEditing-header">Edit questions</h1>
           <div className="questionEditing-container">
             {questions.map((question, questionIndex) => (

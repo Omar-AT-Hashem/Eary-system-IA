@@ -1,0 +1,16 @@
+.landing-background {
+    height: 100vh;
+}
+
+.landing-container {
+    padding-top: 200px;
+    margin: auto;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-text{
+    text-align: center;
+    font-size: 40px;
+}

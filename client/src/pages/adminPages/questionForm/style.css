@@ -1,0 +1,170 @@
+.questionForm-background{
+    height: 100vh;
+    width: 100vw ;
+}
+
+.questionForm-container {
+    width: 90vw;
+    min-width:320px;
+    padding: 40px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   
+}
+.questionForm-question-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    background-color: #fff ;
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0px 0px 20px 10px  rgba(0, 0, 0, 0.1);
+}
+
+
+.questionForm-radio {
+    box-sizing: border-box;
+    appearance: none;
+    background: white;
+    outline: 1px solid #333;
+    border: 1px solid white;
+    width: 30px;
+    height: 29px ;
+    caret-color: transparent;
+}
+
+.questionForm-radio:checked {
+background: rgb(50,50,200);
+}
+.questionForm-radio:hover{
+cursor: pointer;
+}
+.questionForm-response-radio-container{
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+align-items: center;
+margin: 10px;
+padding: 5px;
+}
+.questionForm-question,
+.questionForm-question-setting,
+.questionForm-response{
+height: 30px;
+font-size: 20px;
+padding: 5px;
+border-radius: 5px;
+border-color: grey;
+border-width: 1px;
+}
+
+.questionForm-question,
+.questionForm-question-setting{
+margin: 20px;
+margin-left: 38px;
+width: 290px;
+margin-bottom: 10px;
+
+}
+
+.questionForm-question-setting{
+    margin-left: 52px;
+}
+.questionForm-question-audio{
+    width: 350px;
+}
+.questionForm-question-audio::file-selector-button {
+    border: 2px solid #555555;
+	color: #555555;
+	padding: 8px;
+	border-radius: 4px;
+    width: 100px;
+	background-color: #ffffff;
+    margin-left: 56px;
+   
+}
+
+.questionForm-question-audio::file-selector-button:hover{
+    background-color: #e9e9e9;
+    cursor: pointer;
+}
+
+
+
+.questionForm-question:focus,
+.questionForm-question-setting:focus,
+.questionForm-response:focus {
+outline-color: #29335C;
+}
+
+.questionForm-response {
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+}
+
+.questionForm-delete-button, 
+.questionForm-update-button {
+height: 30px;
+border-radius: 5px;
+width: 70px;
+border: none;
+color: #EEEEEE;
+}
+
+.questionForm-delete-button{
+background-color: red;
+} 
+
+.questionForm-update-button {
+background-color: green;
+}
+
+.questionForm-loading {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+.questionForm-header{
+text-align: center;
+color: #EEEEEE;
+}
+
+.questionForm-buttons-containter{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left:80px;
+    padding-right: 50px;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    min-width: 300px;
+}
+
+.questionForm-add-question{
+    background-color: rgb(46, 143, 212);
+}
+.questionForm-submit{
+background-color: rgb(89, 221, 23);
+}
+.questionForm-add-question,
+.questionForm-submit{
+width: 100px;
+height: 40px;
+border: none;
+border-radius: 3px;
+padding: 2px;
+}
+
+.questionForm-add-question:hover,
+.questionForm-submit:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}

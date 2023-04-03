@@ -45,7 +45,7 @@ export const SignupPage = () => {
   return (
     <>
       <LandingNavBar />
-      <div className="signup-background">
+      <div className="page-background">
         <div className="signup-cover">
           <h1>Signup</h1>
           <form onSubmit={handleSubmit}>
