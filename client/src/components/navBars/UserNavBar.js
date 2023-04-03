@@ -7,6 +7,10 @@ export default function UserNavBar() {
   const params = useParams();
   const { username } = params;
 
+  function handleLogout() {
+    localStorage.clear();
+  }
+
   return (
     <header className="main-header">
       <div className="logo">
@@ -14,23 +18,31 @@ export default function UserNavBar() {
       </div>
       <nav>
         <ul>
-          <li>
-            <Link to={"/"}>Home </Link>
-          </li>
-          <li>
-            <Link to={"/contact"}>Contact us </Link>
-          </li>
-          <li>
-            <Link to={"/login"}>login </Link>
-          </li>
+          <Link to={"/"}>
+            <li>Home</li>{" "}
+          </Link>
 
-          <li>
-            <Link to={"/Signup"}>signup </Link>
-          </li>
-          <li>
-            <Link to={"/about"}>About </Link>
-          </li>
+          <Link to={"/contact"}>
+            <li>Contact us</li>{" "}
+          </Link>
+
+          <Link to={"/login"}>
+            <li>login </li>
+          </Link>
+
+          <Link to={"/Signup"}>
+            <li>signup </li>
+          </Link>
+
+          <Link to={"/about"}>
+            <li>About </li>
+          </Link>
         </ul>
+        <ul className="logout">
+            <Link to={"/"} onClick={handleLogout}>
+              <li>logout</li>
+            </Link>
+          </ul> 
       </nav>
     </header>
   );

@@ -1,3 +1,4 @@
+import UserNavBar from "../../../components/navBars/UserNavBar";
 import { apiHandler } from "./apiHandler";
 
 import React, { useState } from "react";
@@ -35,6 +36,8 @@ function ProfileUpdateForm() {
   };
 
   return (
+    <>
+    <UserNavBar />
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="email">Email:</label>
@@ -87,6 +90,7 @@ function ProfileUpdateForm() {
       {errorMessage && <div>{errorMessage}</div>}
       <button type="submit">Update Profile</button>
     </form>
+  </>
   );
 }
 

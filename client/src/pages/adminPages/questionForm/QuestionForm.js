@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { apiHandler } from './apiHandler';
+import AdminNavBar from '../../../components/navBars/AdminNavBar';
 
 function QuestionForm() {
   const [questions, setQuestions] = useState([]);
@@ -52,6 +53,8 @@ function QuestionForm() {
   };
 
   return (
+    <>
+    <AdminNavBar />
     <form onSubmit={handleSubmit}>
       {questions.map((question, questionIndex) => (
         <div key={question.id}>
@@ -84,6 +87,7 @@ function QuestionForm() {
       <button type="button" onClick={handleAddQuestion}>Add Question</button>
       <button type="submit">Submit</button>
     </form>
+  </>
   );
 }
 

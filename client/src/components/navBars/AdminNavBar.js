@@ -5,6 +5,11 @@ import { Link, useParams } from "react-router-dom";
 export default function AdminNavBar() {
   const params = useParams();
   const { username } = params;
+
+  function handleLogout() {
+    localStorage.clear();
+  }
+
   return (
     <header className="main-header">
       <div className="logo">
@@ -12,25 +17,29 @@ export default function AdminNavBar() {
       </div>
       <nav>
         <ul>
-          <li>
-            <Link to={`/${username}/admin/question-editing`}>
-              Edit Questions
-            </Link>
-          </li>
-          <li>
-            <Link to={`/${username}/admin/question-form`}>Add Questions </Link>
-          </li>
-          <li>
-            <Link to={`/${username}/admin/activate-users`}>ActivateUsers </Link>
-          </li>
+          <Link to={`/${username}/admin`}>
+            <li>Home</li>
+          </Link>
+          <Link to={`/${username}/admin/question-editing`}>
+            <li>Edit Questions</li>
+          </Link>
 
-          <li>
-            <Link to={"/Signup"}>signup </Link>
-          </li>
-          <li>
-            <Link to={"/about"}>About </Link>
-          </li>
+          <Link to={`/${username}/admin/question-form`}>
+            <li>Add Questions </li>
+          </Link>
+
+          <Link to={`/${username}/admin/activate-users`}>
+            <li>ActivateUsers </li>
+          </Link>
+          <Link to={"/about"}>
+            <li>About </li>
+          </Link>
         </ul>
+          <ul className="logout">
+            <Link to={"/"} onClick={handleLogout}>
+              <li>logout</li>
+            </Link>
+          </ul>   
       </nav>
     </header>
   );

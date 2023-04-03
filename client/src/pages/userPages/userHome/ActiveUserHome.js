@@ -1,6 +1,7 @@
 import React from "react";
 import { apiHandler } from "./apiHandler";
 import { useState, useEffect } from "react";
+import UserNavBar from "../../../components/navBars/UserNavBar";
 
 export default function ActiveUserHome() {
   const api = new apiHandler();
@@ -35,10 +36,11 @@ export default function ActiveUserHome() {
 
   return(
     <>
+    <UserNavBar />
      {questions.map((question) => {
         return <p id={question.id} onClick={handleSelectQuestion}>{question.setting}</p>
      })}
     </>
-  )
-}
+   )
+ }
 }

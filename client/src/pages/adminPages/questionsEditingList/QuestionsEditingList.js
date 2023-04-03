@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { apiHandler } from "./apiHandler";
 import "./style.css";
+import AdminNavBar from "../../../components/navBars/AdminNavBar";
 
 export function QuestionEditingList() {
   const [questions, setQuestions] = useState([]);
@@ -93,7 +94,13 @@ export function QuestionEditingList() {
     let result2 = await api.updateResponses(relatedResponses);
     console.log(result2);
   };
-  if (statusCode == 404) {
+
+  const session = localStorage.getItem("token")
+  const adminAuth = localStorage.getItem("isAdmin")
+  if(!session || adminAuth != 1){
+    return <h1>403 Unauthorized</h1>
+  }
+  else if (statusCode == 404) {
     return (
       <div className="questionEditing-background">
         <h1 className="questionEditing-loading">No questions availabe</h1>
@@ -108,6 +115,7 @@ export function QuestionEditingList() {
   } else {
     return (
       <>
+      <AdminNavBar />
         <div className="questionEditing-background">
           <h1 className="questionEditing-header">Edit questions</h1>
           <div className="questionEditing-container">
@@ -117,6 +125,7 @@ export function QuestionEditingList() {
                   <audio controls>
                     <source src={question.audioFile} />
                   </audio>
+
                   <input
                     className="questionEditing-question-setting"
                     id={question.id}
@@ -127,7 +136,6 @@ export function QuestionEditingList() {
                       handleQuestionChange(e, questionIndex);
                     }}
                   />
-
                   <input
                     id={question.id}
                     className="questionEditing-question"

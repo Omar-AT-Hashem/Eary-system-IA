@@ -2,6 +2,7 @@ import React from 'react'
 import { apiHandler } from './apiHandler'
 import { useState, useEffect } from 'react'
 import './style.css'
+import AdminNavBar from '../../../components/navBars/AdminNavBar'
 
 
 export default function ActivateUsers() {
@@ -46,6 +47,7 @@ export default function ActivateUsers() {
     }else{
   return (
     <>
+    <AdminNavBar />
     <h1>ActivateUsers</h1>
     {inactiveUsers.map((user, index)=> {
         return (
