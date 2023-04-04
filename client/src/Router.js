@@ -14,6 +14,7 @@ import ActiveUserHome from "./pages/userPages/userHome/ActiveUserHome";
 import AdminHome from "./pages/adminPages/adminHome/AdminHome";
 import ActivateUsers from "./pages/adminPages/activateUsers/ActivateUsers";
 import Landing from "./pages/landingPages/landing/Landing";
+import ExamPage from "./pages/userPages/examPage/ExamPage";
 
 export const router = createBrowserRouter([
   {
@@ -70,7 +71,10 @@ export const router = createBrowserRouter([
         path: "/:username",
         element: <ActiveUserHome />,
       },
-     
+      {
+        path: "/:username/exam",
+        element: <ExamPage />,
+      },
       {
         //wild card route
         path: "*",

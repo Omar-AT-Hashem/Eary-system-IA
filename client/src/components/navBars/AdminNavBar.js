@@ -17,7 +17,7 @@ export default function AdminNavBar() {
       </div>
       <nav>
         <ul>
-          <Link to={`/${username}/admin`}>
+          <Link to={`/`}>
             <li>Home</li>
           </Link>
           <Link to={`/${username}/admin/question-editing`}>

@@ -1,0 +1,63 @@
+.userHome-background {
+    height: 100vh;
+    position: relative;
+}
+
+.userHome-questions-container{
+    background-color: #eee;
+    width: 80%;
+    top: 30%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: center;
+    position: absolute; 
+}
+
+.userHome-question-card {
+    background-color: #fff;
+    margin: 20px;
+    padding: 10px;
+    width: 24%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: 0.5s;
+}
+
+.userHome-selected {
+    width: 28%;
+    height: 50px;
+    opacity: 0.6;
+    transition: 0.5s;
+}
+
+.userHome-question-card:hover{
+    cursor: pointer;
+    opacity: 0.6;
+}
+.userHome-question-setting {
+    font-size: 130%;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.userHome-question-card span {
+width: 2%;
+height: 100%;
+background-color: rgb(30, 65, 244);
+color: rgb(30, 65, 244);
+position: absolute;
+top: 0;
+left: 0;
+}
+
+.userHome-start-exam-button{
+    position: absolute;
+    bottom: 0;
+}
+
