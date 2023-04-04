@@ -127,5 +127,5 @@ export class User {
       throw err;
     }
   }
-  
+
 }

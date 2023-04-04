@@ -1,9 +1,11 @@
 import express from "express";
 import { Exam } from "../../models/Exam.js";
+import { User } from "../../models/User.js";
 
 export const examRoute = express.Router();
 
 const exam = new Exam();
+const user = new User()
 
 const index = async (req, res) => {
   try {
@@ -28,13 +30,15 @@ const getExam = async (req, res) => {
 
 const createExam = async (req, res) => {
   try {
-    const { questionIDs} = req.body;
+    let { questionIDs, grade} = req.body
+    questionIDs = JSON.parse(questionIDs)
     const userID = req.headers.userid
     // creates the exam
     const result = await exam.createExam(userID);
     const examID = result.insertId;
     //links the exam questions to the exam
     await exam.createExamQuestions(examID, questionIDs)
+    await user.addToHistory(examID, userID, grade)
     res.status(201).json({message:"Exam created"});
   } catch (err) {
     res.status(400).send(err.message)

@@ -15,6 +15,7 @@
     padding: 20px;
     justify-content: center;
     position: absolute; 
+    min-height: 150px;
 }
 
 .userHome-question-card {
@@ -59,5 +60,17 @@ left: 0;
 .userHome-start-exam-button{
     position: absolute;
     bottom: 0;
+    margin-top: 30px;
+    background-color: rgb(67, 173, 15);  
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding: 2px; 
+}
+
+.userHome-start-exam-button:hover{
+    cursor: pointer;
+    opacity: 0.8;
 }
 

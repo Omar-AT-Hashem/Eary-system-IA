@@ -1,5 +1,6 @@
 import express, { json, text } from "express";
 import { Question } from "../../models/Question.js";
+
 import auth from "../../middleware/auth.js";
 import adminAuth from "../../middleware/adminAuth.js";
 import path from "path";
@@ -34,6 +35,7 @@ const upload = multer({ storage: storage });
 export const questionRoute = express.Router();
 
 const question = new Question();
+
 
 const index = async (req, res) => {
   try {
