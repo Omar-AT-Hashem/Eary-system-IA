@@ -9,7 +9,6 @@ const user = new User();
 const index = async (req, res) => {
   try {
     const result = await user.index();
-    console.log(result);
     res.status(200).json(result);
   } catch (err) {
     res.status(404).send("Not found");
@@ -55,7 +54,6 @@ const updateUserData = async (req, res) => {
     const id = req.params.id;
     const myUser = await user.getUser(id);
     let { username, email, phone, isActive } = req.body;
-    console.log(req.body);
 
     if (!username) {
       username = myUser.username;

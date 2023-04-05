@@ -8,15 +8,17 @@ import UserNavBar from "../../../components/navBars/UserNavBar";
 import { useAsyncValue } from "react-router-dom";
 
 export default function HistoryPage() {
-  const [history, setHistory] = useState();
+  // const [history, setHistory] = useState();
   const [displayHistory, setDisplayHistory] = useState();
   const navigate = useNavigate();
   const api = new apiHandler();
+  
+  
   useEffect(() => {
     async function fetchData() {
       const userID = localStorage.userID;
       const returnedHistory = await api.getUserHistory();
-      setHistory(returnedHistory.data);
+      // setHistory(returnedHistory.data);
       const returnedQuestionIDs = await Promise.all(
         returnedHistory.data.map(async (el) => {
           const result = await api.getExamQuestions(el.examID);
@@ -89,6 +91,7 @@ export default function HistoryPage() {
         }
       }
       setDisplayHistory(arr2);
+      localStorage.setItem("history", JSON.stringify(arr2))
     }
     fetchData();
   }, []);
@@ -98,9 +101,9 @@ export default function HistoryPage() {
     navigate(`/${localStorage.username}/exam`);
   };
 
-  console.log(history);
-  console.log(displayHistory);
-  if (!displayHistory) {
+ // console.log(history);
+  // console.log(displayHistory);
+  if (!displayHistory || !localStorage.history) {
     return <h1>Loading...</h1>;
   } else {
     return (
@@ -108,7 +111,7 @@ export default function HistoryPage() {
         <UserNavBar />
         <div className="historyPage-background background-color">
           <div className="historyPage-container">
-            {displayHistory.map((history) => (
+            {JSON.parse(localStorage.history).map((history) => (
               <>
                 <div className="historyPage-history-container">
                   <div className="historyPage-setting"><b>Settings:</b></div>

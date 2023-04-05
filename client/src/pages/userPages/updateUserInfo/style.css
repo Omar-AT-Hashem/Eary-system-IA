@@ -1,3 +1,8 @@
+
+.updateUser-background {
+  height: 100vh;
+}
+
 /* Style for form input elements */
 .updateUser-input {
     width: 100%;
@@ -5,6 +10,15 @@
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
+    background-color: #eee;
+    height: 20px;
+  }
+
+  .updateUser-readonly{
+    background-color: lightgrey;
+    border: 1px solid grey;
+    height: 20px;
+    width: 100%;
   }
   
   /* Style for labels */
@@ -12,15 +26,26 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
+    margin-top: 10px;
   }
   
   /* Style for error message */
   .error-message {
     color: red;
+    position: absolute;
+    bottom: 1%;
+    font-weight: bold;
+  }
+  .error-success{
+    color: #4CAF50;
+    position: absolute;
+    bottom: 1%;
+    font-weight: bold;
   }
   
   /* Style for button */
-  .updateUser-button {
+  .updateUser-button,
+  .updateUser-button-red {
     display: inline-block;
     padding: 0.5rem 1rem;
     background-color: #4CAF50;
@@ -30,12 +55,64 @@
     cursor: pointer;
     margin-top: 1rem;
   }
+
+  .updateUser-button-red{
+    background-color: rgb(255, 25, 0);
+    margin-left: 9px;
+  }
   
   /* Style for form container */
   .form-container {
-    max-width: 600px;
+    background-color: #fff;
+    width: 500px;
+    height: fit-content;
     margin: 0 auto;
     padding: 2rem;
     border: 1px solid #ccc;
     border-radius: 0.25rem;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
+
+  .updateUser-overlay{
+    position: absolute;
+    top: 0;
+    left:0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(50,50,50,1);
+    opacity: 0.7;
+    z-index: 1;
+  }
+  .updateUser-overlay-content-container{
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    background-color: black;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    z-index: 2;
+    padding: 20px;
+    border-radius: 10px;
+  }
+.updateUser-overlay-button-container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  }
+.updateUser-overlay-button{
+  margin: 10px;
+  width: 70px;
+  height: 40px;
+  }
+.updateUser-overlay-text{
+  color: white;
+   }

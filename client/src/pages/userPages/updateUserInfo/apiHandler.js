@@ -18,7 +18,7 @@ export class apiHandler {
         let response =  await api.post('/login', user);
         return response
         }catch(err){
-            throw err
+            return err.response
         }
 
 }
@@ -28,8 +28,25 @@ async updateUser(user)  {
     let response =  await api.put(`/user/update-data/${user.id}`, user);
     return response
     }catch(err){
-        throw err
+        return err.response
     }
+}
 
+async updateUserPassword(user) {
+    try{
+        let response =  await api.put(`/user/update-password/${user.id}`, user);
+        return response
+        }catch(err){
+            return err.response
+        }
+}
+
+async deleteUser(userID)  {
+    try{
+    let response =  await api.delete(`/user/delete/${userID}`);
+    return response
+    }catch(err){
+        return err.response; 
+    }
 }
 }

@@ -10,7 +10,7 @@ const user = new User()
 const index = async (req, res) => {
   try {
     const result = await exam.index();
-    console.log(result);
+
     res.status(200).json(result);
   } catch (err) {
     res.status(404).send("Not found");
@@ -49,7 +49,6 @@ const createExam = async (req, res) => {
 const deleteExam = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const result = await exam.deleteExam(id);
     res.send("Exam deleted");
   } catch (err) {

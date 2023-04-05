@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiHandler } from "./apiHandler";
 import "./forms.css";
 import LandingNavBar from "../../../components/navBars/LandingNavBar";
@@ -18,28 +18,22 @@ export const SignupPage = () => {
 
   const api = new apiHandler();
   const [errors, setErrors] = useState({});
-  const Signup = (event) => {
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    let response
     if (SignupForm.password !== SignupForm.confirmPassword) {
       setErrors({
         confirmPassword: "Passwords do not match",
-      });
-      return;
+      }); 
     }
-  };
-  const [popupStyle, showPopup] = useState("hide");
-  const popup = () => {
-    showPopup("signup-popup");
-    setTimeout(() => showPopup("hide"), 3000);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    let response = await api.registerUser(SignupForm);
+    else{
+       response = await api.registerUser(SignupForm);
+    }
     console.log(response);
-    if (response.status === 201) {
+     if (response.status === 201 ) {
       navigate("/login");
-    } else if (response.status == 402 && response.data.email) {
+    } else if (response.status == 402 ) {
       // email already exists in database
       setErrors({ email: "This email is already registered" });
     } else {
@@ -67,9 +61,16 @@ export const SignupPage = () => {
                 type="text"
                 required
                 value={SignupForm.username}
-                onChange={(event) =>
+                onChange={(event) =>{
+                  setErrors({
+                    username: "",
+                    email: "",
+                    phone: "",
+                    password: "",
+                    confirmPassword: "",
+                  })
                   setSignupForm({ ...SignupForm, username: event.target.value })
-                }
+                }}
               />
             </div>
 
@@ -86,8 +87,16 @@ export const SignupPage = () => {
                 required
                 value={SignupForm.phone}
                 onChange={(event) =>
+                  {
+                    setErrors({
+                      username: "",
+                      email: "",
+                      phone: "",
+                      password: "",
+                      confirmPassword: "",
+                    })
                   setSignupForm({ ...SignupForm, phone: event.target.value })
-                }
+                }}
               />
             </div>
 
@@ -103,14 +112,20 @@ export const SignupPage = () => {
                 type="email"
                 required
                 value={SignupForm.email}
-                onChange={(event) =>
+                onChange={(event) =>{
+                  setErrors({
+                    username: "",
+                    email: "",
+                    phone: "",
+                    password: "",
+                    confirmPassword: "",
+                  })
                   setSignupForm({ ...SignupForm, email: event.target.value })
-                }
+                }}
               />
-              {errors.email && <div className="error">{errors.email}</div>}
+              
             </div>
-            {errors.general && <div className="error">{errors.general}</div>}
-
+            
             <div>
               <label className="signup-label" for="password">
                 password
@@ -123,14 +138,19 @@ export const SignupPage = () => {
                 type="password"
                 required
                 value={SignupForm.password}
-                onChange={(event) =>
+                onChange={(event) =>{
+                  setErrors({
+                    username: "",
+                    email: "",
+                    phone: "",
+                    password: "",
+                    confirmPassword: "",
+                  })
                   setSignupForm({ ...SignupForm, password: event.target.value })
-                }
+                }}
               />
             </div>
-            {errors.confirmPassword && (
-              <div style={{ color: "red" }}>{errors.confirmPassword}</div>
-            )}
+          
 
             <div>
               <label className="signup-label" for="confirmPassword">
@@ -144,11 +164,18 @@ export const SignupPage = () => {
                 type="password"
                 required
                 value={SignupForm.confirmPassword}
-                onChange={(event) =>
+                onChange={(event) =>{
+                  setErrors({
+                    username: "",
+                    email: "",
+                    phone: "",
+                    password: "",
+                    confirmPassword: "",
+                  })
                   setSignupForm({
                     ...SignupForm,
                     confirmPassword: event.target.value,
-                  })
+                  })}
                 }
               />
             </div>
@@ -159,18 +186,15 @@ export const SignupPage = () => {
             <div className="alt-login">
               <br></br>
               <p className="text" style={{ textAlign: "center" }}>
-                {" "}
-                Or signup using{" "}
+                Already Have an account ? <Link to={"/login"}>Login</Link>
               </p>
-              <button type="fbutton" className="signup-fbutton">
-                {" "}
-                facebook{" "}
-              </button>
-              <button type="gbutton" className="signup-gbutton">
-                {" "}
-                google{" "}
-              </button>{" "}
+              
             </div>
+            {errors.general && <div className="signUp-error">{errors.general}</div>}
+            {errors.email && <div className="signUp-error">{errors.email}</div>}
+            {errors.confirmPassword && (
+              <div className="signUp-error">{errors.confirmPassword}</div>
+            )}
           </form>
         </div>
       </div>

@@ -8,7 +8,7 @@
 .login-cover {
   background-color:#fff;
   width: 30em;
-  height: 35em;
+  height: 32em;
   border-radius: 1em;
   box-shadow: 0 0.188em 1.55em rgb(156, 156, 156);
   display: flex;
@@ -31,7 +31,7 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
- 
+  
 }
 
 .login-submit {
@@ -49,9 +49,12 @@
   background-color: #3e8e41;
 }
 
-.error {
+.login-error {
   color: red;
   margin-bottom: 10px;
+  position: absolute;
+  bottom: 3;
+  font-weight: bold ;
 }
 
 .success {

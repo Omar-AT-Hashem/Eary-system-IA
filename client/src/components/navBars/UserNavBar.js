@@ -13,8 +13,8 @@ export default function UserNavBar() {
   }
 
   function handleRefresh() {
-    navigate(`/${username}/history`)
-    window.location.reload(false)
+     navigate(`/${username}/history`)
+     window.location.reload(false)
   }
 
   return (
@@ -37,11 +37,7 @@ export default function UserNavBar() {
           </Link>
 
           <Link to={`/${username}/update-profile`}>
-            <li>Update profile </li>
-          </Link>
-
-          <Link to={"/about"}>
-            <li>About </li>
+            <li>Edit profile </li>
           </Link>
         </ul>
         <ul className="logout">

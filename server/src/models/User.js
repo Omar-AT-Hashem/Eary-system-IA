@@ -47,6 +47,18 @@ export class User {
     }
   };
 
+  getUserPassword = async (userID) =>{
+    try {
+      const sql =
+        "SELECT password FROM users WHERE id = ?";
+      const values = [userID];
+      const result = await conn.awaitQuery(sql, values);
+      return result[0].password;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   createUser = async (username, email, phone, password, token) => {
     try {
       password = await bcrypt.hash(password, 10);
@@ -99,12 +111,12 @@ export class User {
   //TODO - test this function
   updateUserPassword = async (id, password, newPassword) => {
     try {
-      const returnedUser = await this.getUser(id);
-      const passwordHash = returnedUser.password;
+      const passwordHash = await this.getUserPassword(id);
       const isPasswordCorrect = await bcrypt.compare(password, passwordHash);
       if (isPasswordCorrect) {
-        const sql = "UPDATE users SET password = ?";
-        const values = [newPassword];
+        newPassword = await bcrypt.hash(newPassword, 10)
+        const sql = "UPDATE users SET password = ? WHERE id = ?";
+        const values = [newPassword, id];
         const result = await conn.awaitQuery(sql, values);
         return { message: "password updated" };
       } else {
@@ -139,5 +151,7 @@ export class User {
       throw err;
     }
   }
+
+  
 
 }

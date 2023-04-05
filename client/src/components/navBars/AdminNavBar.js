@@ -21,23 +21,23 @@ export default function AdminNavBar() {
             <li>Home</li>
           </Link>
           <Link to={`/${username}/admin/question-editing`}>
-            <li>Edit Questions</li>
+            <li>Edit questions</li>
           </Link>
 
           <Link to={`/${username}/admin/question-form`}>
-            <li>Add Questions </li>
+            <li>Add questions </li>
           </Link>
 
           <Link to={`/${username}/admin/activate-users`}>
-            <li>ActivateUsers </li>
+            <li>Activate users </li>
           </Link>
-          <Link to={"/about"}>
-            <li>About </li>
+          <Link to={`/${username}/update-profile`}>
+            <li>Edit profile </li>
           </Link>
         </ul>
           <ul className="logout">
             <Link to={"/"} onClick={handleLogout}>
-              <li>logout</li>
+              <li>Logout</li>
             </Link>
           </ul>   
       </nav>

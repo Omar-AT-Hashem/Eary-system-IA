@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiHandler } from "./apiHandler";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./forms.css";
 
 import LandingNavBar from "../../../components/navBars/LandingNavBar";
@@ -9,22 +9,18 @@ export const LoginPage = () => {
     email: "",
     password: "",
   });
-  const [statusCode, setStatusCode] = useState();
+  const [error, setError] = useState("");
 
   const api = new apiHandler();
   //const {username} = useParams()
   const navigate = useNavigate();
 
-  const [popupStyle, showPopup] = useState("hide");
-  const popup = () => {
-    showPopup("login-popup");
-    setTimeout(() => showPopup("hide"), 3000);
-  };
+  
 
   const handleSubmit = async (event) => {
-     event.preventDefault();
+    event.preventDefault();
     let response = await api.login(loginForm);
-    setStatusCode(response.status);
+   
     console.log(response);
     if (response.status === 200) {
       const { id, token, isActive, isAdmin, username, phone, email } =
@@ -48,9 +44,7 @@ export const LoginPage = () => {
     } else {
       // display error message
       const errorMessage = "Invalid email or password";
-      setLoginForm({ ...loginForm, password: "" });
-      showPopup("login-popup");
-      setTimeout(() => showPopup("hide"), 3000);
+      setError(errorMessage);
     }
   };
 
@@ -73,9 +67,10 @@ export const LoginPage = () => {
                   type="email"
                   required
                   value={loginForm.email}
-                  onChange={(event) =>
-                    setLoginForm({ ...loginForm, email: event.target.value })
-                  }
+                  onChange={(event) => {
+                    setLoginForm({ ...loginForm, email: event.target.value });
+                    setError("");
+                  }}
                 />
               </div>
 
@@ -90,9 +85,13 @@ export const LoginPage = () => {
                   type="password"
                   required
                   value={loginForm.password}
-                  onChange={(event) =>
-                    setLoginForm({ ...loginForm, password: event.target.value })
-                  }
+                  onChange={(event) => {
+                    setLoginForm({
+                      ...loginForm,
+                      password: event.target.value,
+                    });
+                    setError("");
+                  }}
                 />
               </div>
               <button className="login-submit" type="submit">
@@ -101,17 +100,9 @@ export const LoginPage = () => {
               <div className="alt-login">
                 <br></br>
                 <p className="text" style={{ textAlign: "center" }}>
-                  {" "}
-                  Or login using{" "}
+                  Dont have an account ? <Link to={"/signup"}>Signup</Link>
                 </p>
-                <button type="fbutton" className="login-fbutton">
-                  {" "}
-                  facebook{" "}
-                </button>
-                <button type="gbutton" className="login-gbutton">
-                  {" "}
-                  google{" "}
-                </button>{" "}
+                {error == "Invalid email or password" ? <p className="login-error">Invalid email or password</p> : <p  className="login-error"></p>}
               </div>
             </form>
           </div>
