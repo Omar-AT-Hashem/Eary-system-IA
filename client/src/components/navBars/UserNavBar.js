@@ -1,14 +1,20 @@
 import React from "react";
 import "./style.css";
 import image from "../../assets/images/logo.png";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 
 export default function UserNavBar() {
   const params = useParams();
+  const navigate = useNavigate()
   const { username } = params;
 
   function handleLogout() {
     localStorage.clear();
+  }
+
+  function handleRefresh() {
+    navigate(`/${username}/history`)
+    window.location.reload(false)
   }
 
   return (
@@ -22,16 +28,16 @@ export default function UserNavBar() {
             <li>Home</li>{" "}
           </Link>
 
-          <Link to={"/contact"}>
-            <li>Contact us</li>{" "}
+          <Link to={`/${username}`}>
+            <li>Take Exam</li>{" "}
           </Link>
 
-          <Link to={"/login"}>
-            <li>login </li>
+          <Link onClick={handleRefresh} to={`/${username}/history`}>
+            <li>History </li>
           </Link>
 
-          <Link to={"/Signup"}>
-            <li>signup </li>
+          <Link to={`/${username}/update-profile`}>
+            <li>Update profile </li>
           </Link>
 
           <Link to={"/about"}>

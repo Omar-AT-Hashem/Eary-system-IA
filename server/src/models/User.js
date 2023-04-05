@@ -128,4 +128,16 @@ export class User {
     }
   }
 
+  getHistory = async (userID) =>{
+    try {
+      const sql =
+        "SELECT * FROM history WHERE userID = ?";
+      const values = [userID];
+      const result = await conn.awaitQuery(sql, values);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
 }

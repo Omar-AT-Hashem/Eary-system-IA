@@ -18,6 +18,7 @@ export default function ExamPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    if(!localStorage.examID){
     let questionIDs = JSON.parse(localStorage.selectedQuestions);
     async function fetchData() {
       const result = await Promise.all(
@@ -28,8 +29,26 @@ export default function ExamPage() {
       );
       setQuestions(result);
     }
-
     fetchData();
+  }
+    else {
+      async function fetchData() {
+        let questionIDs = await api.getExamQuestions(localStorage.examID)
+        questionIDs = questionIDs.data.map((question) => {
+          return question.questionID
+        })
+        const result = await Promise.all(
+          questionIDs.map(async (questionID) => {
+            const response = await api.getQuestion(questionID);
+            return response.data;
+          })
+          
+        );
+        setQuestions(result);
+      }
+      fetchData();
+    }
+        
   }, []);
 
   const handleNext = () => {
@@ -46,6 +65,7 @@ export default function ExamPage() {
     console.log(result);
     setSubmit(1)
     localStorage.removeItem("selectedQuestions")
+    localStorage.removeItem("examID")
     setTimeout(()=>{
       navigate(`/${localStorage.username}`)
     }, 4000)
@@ -76,7 +96,7 @@ export default function ExamPage() {
             id={questions[currentQuestion].returnedQuestion.id}
             src={questions[currentQuestion].returnedQuestion.audioFile}
             playing={audioEnded == 0 ? true : false}
-            volume={0.1}
+            volume={0.5}
             onEnd={() => {
               setAudioEnded(1);
             }}

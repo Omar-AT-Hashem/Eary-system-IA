@@ -2,6 +2,7 @@ import React from "react";
 import LandingNavBar from "../../../components/navBars/LandingNavBar";
 import "./style.css"
 export default function Landing() {
+  
   return (
     <>
       <LandingNavBar />

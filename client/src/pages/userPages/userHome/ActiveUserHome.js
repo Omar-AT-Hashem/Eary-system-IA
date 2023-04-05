@@ -47,6 +47,7 @@ export default function ActiveUserHome() {
       "selectedQuestions",
       JSON.stringify(selectedQuestions)
     );
+    localStorage.removeItem("examID")
     navigate(`/${localStorage.username}/exam`);
   };
 

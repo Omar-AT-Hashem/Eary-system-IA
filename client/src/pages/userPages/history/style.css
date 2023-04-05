@@ -1,0 +1,43 @@
+.historyPage-background{
+    height: 100vh;
+}
+
+.historyPage-container
+{
+    display: flex;
+    flex-direction: column;
+    padding: 100px;
+}
+
+
+.historyPage-history-container{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    background-color: #fff;
+    align-items: center;
+    margin: 20px;
+}
+
+.historyPage-history-container div {
+    margin: 20px;
+}
+
+.historyPage-button{
+    margin-left: 80px;
+    width: 80px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding: 2px;
+    background-color: rgb(67, 173, 15);
+}
+.historyPage-button:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.historyPage-setting{
+    margin-right: 0;
+    padding: 0;
+}

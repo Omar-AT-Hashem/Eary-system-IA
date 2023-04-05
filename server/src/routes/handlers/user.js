@@ -100,10 +100,22 @@ const addToHistory = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+
+const getHistory = async (req, res) => {
+  try {
+    const userID = req.headers.userid;
+    const result = await user.getHistory(userID);
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 // localhost:5000/api/user
 
 userRoute.get("/index", index);
 userRoute.get("/get/:id", getUser);
+userRoute.get('/get-history', getHistory);
 userRoute.get("/get-in-active", getInActiveUsers);
 userRoute.post("/add-to-history",addToHistory)
 userRoute.put("/update-data/:id", updateUserData);

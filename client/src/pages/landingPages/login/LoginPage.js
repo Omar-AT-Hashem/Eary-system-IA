@@ -22,27 +22,35 @@ export const LoginPage = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+     event.preventDefault();
     let response = await api.login(loginForm);
     setStatusCode(response.status);
     console.log(response);
-    const { id, token, isActive, isAdmin, username, phone, email } =
-      response.data.userData;
-    localStorage.setItem("userID", id);
-    localStorage.setItem("token", token);
-    localStorage.setItem("isActive", isActive);
-    localStorage.setItem("isAdmin", isAdmin);
-    localStorage.setItem("username", username);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("email", email);
-    if (isActive == 0) {
-      navigate(`/${username}/pending`);
-    } else if (isActive == 1) {
-      if (isAdmin == 1) {
-        navigate(`/${username}/admin`);
-      } else {
-        navigate(`/${username}`);
+    if (response.status === 200) {
+      const { id, token, isActive, isAdmin, username, phone, email } =
+        response.data.userData;
+      localStorage.setItem("userID", id);
+      localStorage.setItem("token", token);
+      localStorage.setItem("isActive", isActive);
+      localStorage.setItem("isAdmin", isAdmin);
+      localStorage.setItem("username", username);
+      localStorage.setItem("phone", phone);
+      localStorage.setItem("email", email);
+      if (isActive == 0) {
+        navigate(`/${username}/pending`);
+      } else if (isActive == 1) {
+        if (isAdmin == 1) {
+          navigate(`/${username}/admin`);
+        } else {
+          navigate(`/${username}`);
+        }
       }
+    } else {
+      // display error message
+      const errorMessage = "Invalid email or password";
+      setLoginForm({ ...loginForm, password: "" });
+      showPopup("login-popup");
+      setTimeout(() => showPopup("hide"), 3000);
     }
   };
 

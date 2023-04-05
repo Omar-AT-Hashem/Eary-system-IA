@@ -12,7 +12,7 @@ const registerUser = async (req, res) => {
     const {username, email, phone, password } = req.body
     const result = await user.getUserByEmail(email)
     if(result.length > 0){
-        res.status(210).json({"message":"This email address is already registered"})
+        res.status(402).json({"message":"This email address is already registered"})
     }else{
        const token = uuid()
        await user.createUser(username, email, phone, password, token)

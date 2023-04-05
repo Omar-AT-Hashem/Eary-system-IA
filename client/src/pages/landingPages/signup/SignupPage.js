@@ -37,8 +37,14 @@ export const SignupPage = () => {
     event.preventDefault();
     let response = await api.registerUser(SignupForm);
     console.log(response);
-    if (response.status == 201) {
+    if (response.status === 201) {
       navigate("/login");
+    } else if (response.status == 402 && response.data.email) {
+      // email already exists in database
+      setErrors({ email: "This email is already registered" });
+    } else {
+      // sign up failed for other reasons
+      setErrors({ general: "Sign up failed, please try again" });
     }
   };
 
@@ -86,14 +92,14 @@ export const SignupPage = () => {
             </div>
 
             <div>
-              <label className="signup-label" for="email">
+              <label className="signup-label" htmlFor="email">
                 Email
               </label>
               <input
                 className="signup-input"
                 name="email"
                 id="email"
-                placeholder="plaese enter your email"
+                placeholder="please enter your email"
                 type="email"
                 required
                 value={SignupForm.email}
@@ -101,7 +107,9 @@ export const SignupPage = () => {
                   setSignupForm({ ...SignupForm, email: event.target.value })
                 }
               />
+              {errors.email && <div className="error">{errors.email}</div>}
             </div>
+            {errors.general && <div className="error">{errors.general}</div>}
 
             <div>
               <label className="signup-label" for="password">

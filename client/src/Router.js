@@ -15,6 +15,8 @@ import AdminHome from "./pages/adminPages/adminHome/AdminHome";
 import ActivateUsers from "./pages/adminPages/activateUsers/ActivateUsers";
 import Landing from "./pages/landingPages/landing/Landing";
 import ExamPage from "./pages/userPages/examPage/ExamPage";
+import HistoryPage from "./pages/userPages/history/HistoryPage";
+import ProfileUpdateForm from "./pages/userPages/updateUserInfo/ProfileUpdateForm";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ export const router = createBrowserRouter([
       {
         path: "/:username/exam",
         element: <ExamPage />,
+      },
+      {
+        path: "/:username/history",
+        element: <HistoryPage />,
+      },
+      {
+        path: "/:username/update-profile",
+        element: <ProfileUpdateForm />,
       },
       {
         //wild card route

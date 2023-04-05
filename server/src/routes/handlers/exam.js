@@ -69,8 +69,19 @@ const updateExam = async (req, res) => {
   }
 };
 
+const getQuestions = async (req, res) => {
+  try {
+    const examID = req.params.id;
+    const result = await exam.getQuestions(examID)
+    res.json(result); 
+  } catch (err) {
+    res.status(400).send(err.message)
+  }
+};
+
 
 examRoute.get("/get/:id", getExam);
+examRoute.get("/get-questions/:id", getQuestions);
 examRoute.post("/create", createExam);
 examRoute.put("/updateExam/:id", updateExam);
 examRoute.delete("/delete/:id", deleteExam);

@@ -1,0 +1,41 @@
+/* Style for form input elements */
+.updateUser-input {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  /* Style for labels */
+ .updateUser-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  /* Style for error message */
+  .error-message {
+    color: red;
+  }
+  
+  /* Style for button */
+  .updateUser-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  /* Style for form container */
+  .form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
