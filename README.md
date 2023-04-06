@@ -18,11 +18,11 @@
 
 #### paste the following values into your .env file
 
-SERVER_PORT = 5000
-DB = 'testdb'
-DB_HOST = 'localhost'
-DB_USER = 'root'
-DB_PASSWORD = ''
+#### SERVER_PORT = 5000
+#### DB = 'testdb'
+#### DB_HOST = 'localhost'
+#### DB_USER = 'root'
+#### DB_PASSWORD = ''
 
 #### Import the sql file into mariaDB
 
