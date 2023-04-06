@@ -2,7 +2,7 @@
 
 ## Description
 
-#### The system allows a user to register and after having their account activated
+#### -The system allows a user to register and after having their account activated
 
 #### be able to take an exam from their selected settings, the user can view thier
 
@@ -10,13 +10,13 @@
 
 ## Config
 
-#### Clone the repo then run "npm i" in both the server and client directories
+#### -Clone the repo then run "npm i" in both the server and client directories
 
 #### to dowload all dependencies
 
-#### In the server directory create a file and name it ".env"
+#### -In the server directory create a file and name it ".env"
 
-#### paste the following values into your .env file
+#### -paste the following values into your .env file
 
 #### SERVER_PORT = 5000
 #### DB = 'testdb'
@@ -24,13 +24,13 @@
 #### DB_USER = 'root'
 #### DB_PASSWORD = ''
 
-#### Import the sql file into mariaDB
+#### -Import the sql file into mariaDB
 
-#### Run "npm run start" in both the client and server directories
+#### -Run "npm run start" in both the client and server directories
 
-#### After you have launched your DB server
+#### -After you have launched your DB server
 
-#### You can now login with the root user which is an admin
+#### -You can now login with the root user which is an admin
 
 #### email : root@root.com
 
