@@ -54,20 +54,34 @@ export default function ExamPage() {
   const handleNext = () => {
     setCurrentQuestion((value) => value + 1);
     setAudioEnded(0);
-    if (isCorrectValue == 1) setCorrectCounter((value) => value + 1);
+    if (isCorrectValue == 1) 
+    {
+      setCorrectCounter((value) => value + 1);
+    }
     setIsCorrectValue(0);
   };
 
+  console.log(correctCounter);
+
   const handleSubmit = async () => {
-    const grade = `${correctCounter}/${questions.length}`
+    setAudioEnded(0);
+    let correct = correctCounter
+    if (isCorrectValue == 1) 
+    {
+      setCorrectCounter((value) => value + 1);
+      correct = correctCounter + 1
+    }
+    setIsCorrectValue(0);
+    const grade = `${correct}/${questions.length}`
     const data = {questionIDs: localStorage.selectedQuestions, grade:grade }
     const result = await api.createExam(data)
     console.log(result);
     setSubmit(1)
-    localStorage.removeItem("selectedQuestions")
-    localStorage.removeItem("examID")
+   
     setTimeout(()=>{
       navigate(`/${localStorage.username}`)
+      localStorage.removeItem("selectedQuestions")
+      localStorage.removeItem("examID")
     }, 4000)
   };
 
@@ -77,7 +91,11 @@ export default function ExamPage() {
 
   console.log(questions);
 
-  if (!questions) {
+  const session = localStorage.getItem("token")
+    if(!session){
+      return <h1>Unauthorized</h1>
+    }
+else if (!questions) {
     return (
     <div className="examPage-background background-color">
     <h1>Loading</h1>

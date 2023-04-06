@@ -37,7 +37,6 @@ const getInActiveUsers = async (req, res) => {
   }
 };
 
-
 const deleteUser = async (req, res) => {
   try {
     const id = req.params.id;
@@ -53,7 +52,7 @@ const updateUserData = async (req, res) => {
   try {
     const id = req.params.id;
     const myUser = await user.getUser(id);
-    let { username, email, phone, isActive } = req.body;
+    let { username, email, phone, isActive, isAdmin } = req.body;
 
     if (!username) {
       username = myUser.username;
@@ -67,7 +66,10 @@ const updateUserData = async (req, res) => {
     if (!isActive) {
       isActive = myUser.isActive;
     }
-    await user.updateUserData(id, username, email, phone, isActive);
+    if (!isAdmin) {
+      isAdmin = myUser.isActive;
+    }
+    await user.updateUserData(id, username, email, phone, isActive, isAdmin);
     res.status(200).json({ message: "user updated" });
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -93,7 +95,9 @@ const addToHistory = async (req, res) => {
     const { examID, grade } = req.body;
     const userID = req.headers.userid;
     await user.addToHistory(examID, userID, grade);
-    res.status(201).json({ message: "The exam was added to the user's history" });
+    res
+      .status(201)
+      .json({ message: "The exam was added to the user's history" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -111,11 +115,11 @@ const getHistory = async (req, res) => {
 
 // localhost:5000/api/user
 
-userRoute.get("/index", index);
-userRoute.get("/get/:id", getUser);
-userRoute.get('/get-history', getHistory);
-userRoute.get("/get-in-active", getInActiveUsers);
-userRoute.post("/add-to-history",addToHistory)
-userRoute.put("/update-data/:id", updateUserData);
-userRoute.put("/update-password/:id", updateUserPassword);
-userRoute.delete("/delete/:id", deleteUser);
+userRoute.get("/index", auth, adminAuth, index);
+userRoute.get("/get/:id", auth, getUser);
+userRoute.get("/get-history", auth, getHistory);
+userRoute.get("/get-in-active", auth, adminAuth, getInActiveUsers);
+userRoute.post("/add-to-history", auth, addToHistory);
+userRoute.put("/update-data/:id", auth, updateUserData);
+userRoute.put("/update-password/:id", auth, updateUserPassword);
+userRoute.delete("/delete/:id", auth, deleteUser);

@@ -98,7 +98,7 @@ export function QuestionEditingList() {
   const session = localStorage.getItem("token")
   const adminAuth = localStorage.getItem("isAdmin")
   if(!session || adminAuth != 1){
-    return <h1>403 Unauthorized</h1>
+    return <h1>Unauthorized</h1>
   }
   else if (statusCode == 404) {
     return (
@@ -106,13 +106,15 @@ export function QuestionEditingList() {
         <h1 className="questionEditing-loading">No questions availabe</h1>
       </div>
     );
-  } else if (!questions || !responses) {
-    // return (
-    //   <div className="questionEditing-background">
-    //     <h1 className="questionEditing-loading">Loading...</h1>
-    //   </div>
-    // );
-  } else {
+  } 
+  else if (!questions || !responses) {
+    return (
+      <div className="questionEditing-background background-color">
+        <h1 className="questionEditing-loading">Loading...</h1>
+      </div>
+    );
+  } 
+  else {
     return (
       <>
       <AdminNavBar />

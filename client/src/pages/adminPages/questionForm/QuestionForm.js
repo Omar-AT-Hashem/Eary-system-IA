@@ -60,7 +60,7 @@ function QuestionForm() {
     setQuestions(newQuestions);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit =  (event) => {
     event.preventDefault();
     // Save questions to database
     const formData = new FormData();
@@ -74,11 +74,24 @@ function QuestionForm() {
       let result = await api.createQuestion(formData);
       console.log(result);
     });
+    setQuestions([
+      {
+        id: 1,
+        title: "",
+        question: "",
+        audio: "",
+        responses: [
+          { id: 1, response: "", iscorrect: 0 },
+          { id: 2, response: "", iscorrect: 0 },
+          { id: 3, response: "", iscorrect: 0 },
+        ],
+      },
+    ])
   };
   const session = localStorage.getItem("token")
   const adminAuth = localStorage.getItem("isAdmin")
   if(!session || adminAuth != 1){
-    return <h1>403 unauthorized</h1>
+    return <h1>Unauthorized</h1>
   }else {
   return (
     <>
@@ -98,6 +111,7 @@ function QuestionForm() {
                       onChange={(event) =>
                         handleInputChange(event, questionIndex)
                       }
+                      required
                     />
                   </label>
                   <label>
@@ -110,6 +124,7 @@ function QuestionForm() {
                       onChange={(event) =>
                         handleInputChange(event, questionIndex)
                       }
+                      required
                     />
                   </label>
                   <label>
@@ -122,6 +137,7 @@ function QuestionForm() {
                       onChange={(event) =>
                         handleInputChange(event, questionIndex)
                       }
+                      required
                     />
                   </label>
 
@@ -142,6 +158,7 @@ function QuestionForm() {
                                 responseIndex
                               )
                             }
+                            required
                           />
                         </label>
                         <input
@@ -157,6 +174,7 @@ function QuestionForm() {
                               responseIndex
                             )
                           }
+                          required
                         />
                       </div>
                     </div>

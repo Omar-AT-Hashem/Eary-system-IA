@@ -5,16 +5,11 @@ import { useNavigate, Link, useParams } from "react-router-dom";
 
 export default function UserNavBar() {
   const params = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { username } = params;
 
   function handleLogout() {
     localStorage.clear();
-  }
-
-  function handleRefresh() {
-     navigate(`/${username}/history`)
-     window.location.reload(false)
   }
 
   return (
@@ -32,7 +27,7 @@ export default function UserNavBar() {
             <li>Take Exam</li>{" "}
           </Link>
 
-          <Link onClick={handleRefresh} to={`/${username}/history`}>
+          <Link to={`/${username}/history`}>
             <li>History </li>
           </Link>
 
@@ -41,10 +36,10 @@ export default function UserNavBar() {
           </Link>
         </ul>
         <ul className="logout">
-            <Link to={"/"} onClick={handleLogout}>
-              <li>logout</li>
-            </Link>
-          </ul> 
+          <Link to={"/"} onClick={handleLogout}>
+            <li>logout</li>
+          </Link>
+        </ul>
       </nav>
     </header>
   );

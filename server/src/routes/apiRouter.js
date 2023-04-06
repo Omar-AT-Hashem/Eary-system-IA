@@ -5,6 +5,7 @@ import { questionRoute } from "./handlers/question.js";
 import { registerRoute } from "./handlers/register.js";
 import { loginRoute } from "./handlers/login.js";
 
+
 export const apiRouter = express.Router();
 
 apiRouter.get("/", (req, res) => {

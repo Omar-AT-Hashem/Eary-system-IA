@@ -10,6 +10,7 @@ import { useAsyncValue } from "react-router-dom";
 export default function HistoryPage() {
   // const [history, setHistory] = useState();
   const [displayHistory, setDisplayHistory] = useState();
+ const [questionIDs, setQuestionIDs] = useState()
   const navigate = useNavigate();
   const api = new apiHandler();
   
@@ -25,7 +26,19 @@ export default function HistoryPage() {
           return result.data;
         })
       );
+      
+      
+      
+      let questionsArray = []
+      for(let i = 0; i < returnedQuestionIDs.length; i++){ 
+        console.log(returnedQuestionIDs[i][0])
+        for(let j = 0; j < returnedQuestionIDs[i].length; j++){
+          questionsArray.push(returnedQuestionIDs[i][j])
+        }
+      }
 
+      setQuestionIDs(questionsArray)
+      
       const test = returnedHistory.data.map((row) => {
         return returnedQuestionIDs.map((el) => {
           return el.map((e) => {
@@ -80,7 +93,6 @@ export default function HistoryPage() {
 
       for (let i = 0; i < arr2.length; i++) {
         for (let j = 0; j < returnedHistory.data.length; j++) {
-          console.log(arr2[i]);
           if (arr2[i].historyID == returnedHistory.data[j].id) {
             arr2[i] = {
               ...arr2[i],
@@ -96,14 +108,28 @@ export default function HistoryPage() {
     fetchData();
   }, []);
 
+  console.log(questionIDs);
   const handleRetake = (e) => {
+    let questions = questionIDs.filter((questionID) => {
+      return e.target.id == questionID.examID      
+    }
+    )
+    questions = questions.map((question) => {
+      return question.questionID
+    })
     localStorage.setItem("examID", e.target.id);
+    localStorage.setItem("selectedQuestions", JSON.stringify(questions))
     navigate(`/${localStorage.username}/exam`);
   };
 
  // console.log(history);
   // console.log(displayHistory);
-  if (!displayHistory || !localStorage.history) {
+  const session = localStorage.getItem("token")
+    if(!session){
+      return <h1>Unauthorized</h1>
+    }
+
+  else if (!displayHistory || !localStorage.history) {
     return <h1>Loading...</h1>;
   } else {
     return (

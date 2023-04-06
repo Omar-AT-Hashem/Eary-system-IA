@@ -36,15 +36,14 @@ export const questionRoute = express.Router();
 
 const question = new Question();
 
-
 const index = async (req, res) => {
   try {
     const result = await question.index();
-    if (result.length > 0){
-    res.status(200).json(result);
-  }else {
-    res.status(404).json({ message: "Not found" });
-  }
+    if (result.length > 0) {
+      res.status(200).json(result);
+    } else {
+      res.status(404).json({ message: "Not found" });
+    }
   } catch (err) {
     res.status(404).json({ message: "Not found" });
     throw err;
@@ -132,7 +131,7 @@ const getQuestionResponses = async (req, res) => {
 
 const updateQuestionRespones = async (req, res) => {
   try {
-    const {responses} = req.body;
+    const { responses } = req.body;
     await question.updateQuestionRespones(responses);
     res.status(200).json({ message: "Respones Updated" });
   } catch (err) {
@@ -144,8 +143,8 @@ const updateQuestionRespones = async (req, res) => {
 questionRoute.get("/index", index);
 questionRoute.get("/get-settings", getQuestionSettings);
 questionRoute.get("/get/:id", getQuestion);
-questionRoute.post("/create", upload.single("audioFile"), createQuestion);
-questionRoute.post("/get-responses", getQuestionResponses);
-questionRoute.put("/update/:id", updateQuestion);
-questionRoute.put("/update-responses", updateQuestionRespones);
-questionRoute.delete("/delete/:id", deleteQuestion);
+questionRoute.post("/create", auth,adminAuth, upload.single("audioFile"), createQuestion);
+questionRoute.post("/get-responses",auth, getQuestionResponses);
+questionRoute.put("/update/:id",auth, adminAuth, updateQuestion);
+questionRoute.put("/update-responses", auth, adminAuth, updateQuestionRespones);
+questionRoute.delete("/delete/:id", auth, adminAuth, deleteQuestion);

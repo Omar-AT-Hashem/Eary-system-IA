@@ -3,6 +3,7 @@ import { apiHandler } from "./apiHandler";
 import { useNavigate } from "react-router-dom";
 import "./style.css";
 import React, { useState } from "react";
+import AdminNavBar from "../../../components/navBars/AdminNavBar";
 
 function ProfileUpdateForm() {
   const [password, setPassword] = useState("");
@@ -45,132 +46,136 @@ function ProfileUpdateForm() {
     }
   };
 
-  const handleTerminateProfile = async() => {
-    await api.deleteUser(localStorage.userID)
+  const handleTerminateProfile = async () => {
+    await api.deleteUser(localStorage.userID);
     setDisplayOverlay(0);
     navigate("/");
   };
+  const session = localStorage.getItem("token");
+  if (!session) {
+    return <h1>Unauthorized</h1>;
+  } else {
+    return (
+      <>
+        {localStorage.isAdmin != 1 ? <UserNavBar /> : <AdminNavBar />}
+        <div className="updateUser-background background-color">
+          <div class="form-container">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label className="updateUser-label" htmlFor="email">
+                  Email:
+                </label>
+                <input
+                  type="email"
+                  className="updateUser-readonly"
+                  id="email"
+                  value={localStorage.email}
+                  required
+                  readOnly
+                />
+              </div>
+              <div>
+                <label className="updateUser-label" htmlFor="email">
+                  Username:
+                </label>
+                <input
+                  type="text"
+                  className="updateUser-readonly"
+                  id="email"
+                  value={localStorage.username}
+                  required
+                  readOnly
+                />
+              </div>
+              <div>
+                <label className="updateUser-label" htmlFor="password">
+                  Password:
+                </label>
+                <input
+                  type="password"
+                  className="updateUser-input"
+                  id="password"
+                  value={password}
+                  onChange={(event) => {
+                    setErrorMessage("");
+                    setPassword(event.target.value);
+                  }}
+                  required
+                />
+              </div>
 
-  return (
-    <>
-      <UserNavBar />
-      <div className="updateUser-background background-color">
-        <div class="form-container">
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label className="updateUser-label" htmlFor="email">
-                Email:
-              </label>
-              <input
-                type="email"
-                className="updateUser-readonly"
-                id="email"
-                value={localStorage.email}
-                required
-                readOnly
-              />
-            </div>
-            <div>
-              <label className="updateUser-label" htmlFor="email">
-                Username:
-              </label>
-              <input
-                type="text"
-                className="updateUser-readonly"
-                id="email"
-                value={localStorage.username}
-                required
-                readOnly
-              />
-            </div>
-            <div>
-              <label className="updateUser-label" htmlFor="password">
-                Password:
-              </label>
-              <input
-                type="password"
-                className="updateUser-input"
-                id="password"
-                value={password}
-                onChange={(event) => {
-                  setErrorMessage("");
-                  setPassword(event.target.value);
-                }}
-                required
-              />
-            </div>
+              <div>
+                <label className="updateUser-label" htmlFor="new-username">
+                  New Username:<small> optional</small>
+                </label>
+                <input
+                  type="text"
+                  className="updateUser-input"
+                  id="new-username"
+                  value={newUsername}
+                  onChange={(event) => {
+                    setErrorMessage("");
+                    setNewUsername(event.target.value);
+                  }}
+                />
+              </div>
+              <div>
+                <label className="updateUser-label" htmlFor="new-phone">
+                  New Phone:<small> optional</small>
+                </label>
+                <input
+                  type="tel"
+                  className="updateUser-input"
+                  id="new-phone"
+                  value={newPhone}
+                  onChange={(event) => {
+                    setErrorMessage("");
+                    setNewPhone(event.target.value);
+                  }}
+                />
+              </div>
 
-            <div>
-              <label className="updateUser-label" htmlFor="new-username">
-                New Username:<small> optional</small>
-              </label>
-              <input
-                type="text"
-                className="updateUser-input"
-                id="new-username"
-                value={newUsername}
-                onChange={(event) => {
-                  setErrorMessage("");
-                  setNewUsername(event.target.value);
+              <div>
+                <label className="updateUser-label" htmlFor="new-phone">
+                  New Password: <small>optional</small>
+                </label>
+                <input
+                  type="password"
+                  className="updateUser-input"
+                  id="new-phone"
+                  value={newPassword}
+                  onChange={(event) => {
+                    setErrorMessage("");
+                    setNewPassword(event.target.value);
+                  }}
+                />
+              </div>
+              {errorMessage == "Updated Successfully" ? (
+                <div class="error-success">{errorMessage}</div>
+              ) : (
+                <div class="error-message">{errorMessage}</div>
+              )}
+              <button className="updateUser-button" type="submit">
+                Update Profile
+              </button>
+              <button
+                className="updateUser-button-red"
+                onClick={(e) => {
+                  setDisplayOverlay(1);
                 }}
-              />
-            </div>
-            <div>
-              <label className="updateUser-label" htmlFor="new-phone">
-                New Phone:<small> optional</small>
-              </label>
-              <input
-                type="tel"
-                className="updateUser-input"
-                id="new-phone"
-                value={newPhone}
-                onChange={(event) => {
-                  setErrorMessage("");
-                  setNewPhone(event.target.value);
-                }}
-              />
-            </div>
-
-            <div>
-              <label className="updateUser-label" htmlFor="new-phone">
-                New Password: <small>optional</small>
-              </label>
-              <input
-                type="password"
-                className="updateUser-input"
-                id="new-phone"
-                value={newPassword}
-                onChange={(event) => {
-                  setErrorMessage("");
-                  setNewPassword(event.target.value);
-                }}
-              />
-            </div>
-            {errorMessage == "Updated Successfully" ? (
-              <div class="error-success">{errorMessage}</div>
-            ) : (
-              <div class="error-message">{errorMessage}</div>
-            )}
-            <button className="updateUser-button" type="submit">
-              Update Profile
-            </button>
-            <button
-              className="updateUser-button-red"
-              onClick={(e) => {
-                setDisplayOverlay(1)
-              }} 
-            >
-              Terminate Account
-            </button>
-          </form>
-         
-        </div>
-        {displayOverlay == 1 ? 
+              >
+                Terminate Account
+              </button>
+            </form>
+          </div>
+          {displayOverlay == 1 ? (
             <div className="updateUser-overlay">
               <div className="updateUser-overlay-content-container">
                 <div className="updateUser-overlay-text">
-                  <b>Are you sure you want to terminate your account? The account
-                  will be permenantly deleted</b>
+                  <b>
+                    Are you sure you want to terminate your account? The account
+                    will be permenantly deleted
+                  </b>
                 </div>
                 <div className="updateUser-overlay-button-container">
                   <button
@@ -182,18 +187,21 @@ function ProfileUpdateForm() {
                   <button
                     className="updateUser-overlay-button"
                     onClick={(e) => {
-                      setDisplayOverlay(0)
+                      setDisplayOverlay(0);
                     }}
                   >
                     No
                   </button>
                 </div>
               </div>
-            </div>:<div></div>
-          }
-      </div>
-    </>
-  );
+            </div>
+          ) : (
+            <div></div>
+          )}
+        </div>
+      </>
+    );
+  }
 }
 
 export default ProfileUpdateForm;

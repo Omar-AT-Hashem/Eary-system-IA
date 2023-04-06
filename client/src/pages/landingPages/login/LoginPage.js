@@ -34,11 +34,14 @@ export const LoginPage = () => {
       localStorage.setItem("email", email);
       if (isActive == 0) {
         navigate(`/${username}/pending`);
+        window.location.reload()
       } else if (isActive == 1) {
         if (isAdmin == 1) {
           navigate(`/${username}/admin`);
+          window.location.reload()
         } else {
           navigate(`/${username}`);
+          window.location.reload()
         }
       }
     } else {

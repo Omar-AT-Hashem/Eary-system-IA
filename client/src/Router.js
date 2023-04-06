@@ -17,6 +17,8 @@ import Landing from "./pages/landingPages/landing/Landing";
 import ExamPage from "./pages/userPages/examPage/ExamPage";
 import HistoryPage from "./pages/userPages/history/HistoryPage";
 import ProfileUpdateForm from "./pages/userPages/updateUserInfo/ProfileUpdateForm";
+import EditUsers from "./pages/adminPages/editUsers/EditUsers";
+import AddUser from "./pages/adminPages/editUsers/AddUser";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +62,14 @@ export const router = createBrowserRouter([
       {
         path: "/:username/admin",
         element: <AdminHome />,
+      },
+      {
+        path: "/:username/admin/add-user",
+        element: <AddUser />,
+      },
+      {
+        path: "/:username/admin/edit-users",
+        element: <EditUsers />,
       },
       {
         path: "/:username/admin/activate-users",

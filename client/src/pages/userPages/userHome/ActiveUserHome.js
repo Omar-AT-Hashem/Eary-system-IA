@@ -52,8 +52,11 @@ export default function ActiveUserHome() {
   };
 
   console.log(selectedQuestions);
-
-  if (!questions) {
+  const session = localStorage.getItem("token")
+  if(!session){
+    return <h1>Unauthorized</h1>
+  }
+  else if (!questions) {
     return <h1>loading..</h1>;
   } else {
     return (

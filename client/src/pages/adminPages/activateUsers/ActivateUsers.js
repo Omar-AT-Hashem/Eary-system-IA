@@ -42,7 +42,7 @@ export default function ActivateUsers() {
   const session = localStorage.getItem("token")
   const adminAuth = localStorage.getItem("isAdmin")
   if(!session || adminAuth != 1){
-    return <h1>403 unauthorized</h1>
+    return <h1>Unauthorized</h1>
   }
   else if (!inactiveUsers) {
     return <h1>loading...</h1>;
