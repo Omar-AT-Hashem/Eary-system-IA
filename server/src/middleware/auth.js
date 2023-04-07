@@ -3,6 +3,7 @@ import { User } from "../models/User.js";
 const user = new User();
 
 const auth = async function (req, res, next) {
+  console.log(req.headers);
   let token = null
   if(req.headers.authorization){
    token = req.headers.authorization.split(' ')[1];

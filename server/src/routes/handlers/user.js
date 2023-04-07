@@ -120,6 +120,6 @@ userRoute.get("/get/:id", auth, getUser);
 userRoute.get("/get-history", auth, getHistory);
 userRoute.get("/get-in-active", auth, adminAuth, getInActiveUsers);
 userRoute.post("/add-to-history", auth, addToHistory);
-userRoute.put("/update-data/:id", auth, updateUserData);
+userRoute.put("/update-data/:id",auth, updateUserData);
 userRoute.put("/update-password/:id", auth, updateUserPassword);
 userRoute.delete("/delete/:id", auth, deleteUser);
