@@ -73,7 +73,7 @@ const createQuestion = async (req, res) => {
     res3 = JSON.parse(res3);
     const result = await question.createQuestion(filePath, text, setting);
     const questionID = result.insertId;
-    //creates the responses for the question
+    //creates the responses for the question_
     await question.createResponses(questionID, res1, res2, res3);
     res.status(200).json({ message: "question created" });
   } catch (err) {
