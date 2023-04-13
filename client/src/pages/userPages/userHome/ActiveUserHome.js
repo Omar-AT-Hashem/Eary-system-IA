@@ -8,12 +8,14 @@ import { json } from "react-router-dom";
 export default function ActiveUserHome() {
   const api = new apiHandler();
   const [questions, setQuestions] = useState();
+  const [statusCode, setStatusCode] = useState()
   const [selectedQuestions, setSelectedQuestions] = useState([]);
 
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
       const result = await api.getQuestions();
+      setStatusCode(result.status)
       setQuestions(result.data);
     }
     fetchData();
@@ -41,24 +43,37 @@ export default function ActiveUserHome() {
       setSelectedQuestions((values) => [...values, e.target.id]);
     }
   };
+  
 
   const handleStartExam = () => {
     localStorage.setItem(
       "selectedQuestions",
       JSON.stringify(selectedQuestions)
     );
-    localStorage.removeItem("examID")
+    localStorage.removeItem("examID");
     navigate(`/${localStorage.username}/exam`);
   };
 
   console.log(selectedQuestions);
-  const session = localStorage.getItem("token")
-  if(!session){
-    return <h1>Unauthorized</h1>
-  }
-  else if (!questions) {
-    return <h1>loading..</h1>;
-  } else {
+  const session = localStorage.getItem("token");
+  if (!session) {
+    return <h1>Unauthorized</h1>;
+  } else if (!questions) {
+    return (
+      <>
+        <UserNavBar />
+        <h1>loading..</h1>;
+      </>
+    );
+  } 
+  else if (statusCode == 404 ) {
+    return (
+      <>
+        <UserNavBar />
+        <h1>No available questions</h1>;
+      </>
+    );}
+  else {
     return (
       <>
         <UserNavBar />

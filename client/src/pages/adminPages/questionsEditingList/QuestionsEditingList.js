@@ -95,29 +95,32 @@ export function QuestionEditingList() {
     console.log(result2);
   };
 
-  const session = localStorage.getItem("token")
-  const adminAuth = localStorage.getItem("isAdmin")
-  if(!session || adminAuth != 1){
-    return <h1>Unauthorized</h1>
-  }
-  else if (statusCode == 404) {
-    return (
-      <div className="questionEditing-background">
-        <h1 className="questionEditing-loading">No questions availabe</h1>
-      </div>
-    );
-  } 
-  else if (!questions || !responses) {
-    return (
-      <div className="questionEditing-background background-color">
-        <h1 className="questionEditing-loading">Loading...</h1>
-      </div>
-    );
-  } 
-  else {
+  const session = localStorage.getItem("token");
+  const adminAuth = localStorage.getItem("isAdmin");
+  if (!session || adminAuth != 1) {
+    return <h1>Unauthorized</h1>;
+  } else if (statusCode == 404) {
     return (
       <>
-      <AdminNavBar />
+        <AdminNavBar />
+        <div className="questionEditing-background">
+          <h1 className="questionEditing-loading">No questions availabe</h1>
+        </div>
+      </>
+    );
+  } else if (!questions || !responses) {
+    return (
+      <>
+        <AdminNavBar />
+        <div className="questionEditing-background background-color">
+          <h1 className="questionEditing-loading">Loading...</h1>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <AdminNavBar />
         <div className="questionEditing-background background-color">
           <h1 className="questionEditing-header">Edit questions</h1>
           <div className="questionEditing-container">
