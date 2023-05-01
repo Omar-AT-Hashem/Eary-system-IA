@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2023 at 02:29 AM
+-- Generation Time: May 01, 2023 at 09:45 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -67,7 +67,8 @@ CREATE TABLE `questionresponses` (
   `id` int(11) NOT NULL,
   `questionID` int(11) NOT NULL,
   `text` varchar(300) NOT NULL,
-  `isCorrect` int(11) NOT NULL
+  `isCorrect` int(11) NOT NULL,
+  `priority` int(11) NOT NULL DEFAULT 100
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -105,7 +106,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `phone`, `isActive`, `isAdmin`, `token`) VALUES
-(83, 'root', 'root@root.com', '$2b$10$a4rckqD7tr/FZ22kwJNsLuQEkkSjEUni1iQ4uw6p2V.ibk0NtwEne', '1111', 1, 1, '32f13ce5-41d8-4555-9e02-a2f73366765b');
+(83, 'root1', 'root@root.com', '$2b$10$a4rckqD7tr/FZ22kwJNsLuQEkkSjEUni1iQ4uw6p2V.ibk0NtwEne', '1111111111', 1, 1, '32f13ce5-41d8-4555-9e02-a2f73366765b');
 
 --
 -- Indexes for dumped tables
@@ -160,31 +161,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `history`
 --
 ALTER TABLE `history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `questionresponses`
 --
 ALTER TABLE `questionresponses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=415;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- Constraints for dumped tables

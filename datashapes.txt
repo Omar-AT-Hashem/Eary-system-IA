@@ -24,7 +24,8 @@ Tables
         -questionID (FK)        [INT]
         -text                   [NVARCHAR : 300] 
         -isCorrect              [INT] 
-    
+	-priority               [INT]
+      
     #examquestions 
         -questionID (FK)   [INT]
         -examID (FK)       [INT]
