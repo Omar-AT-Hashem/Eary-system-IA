@@ -66,15 +66,15 @@ const createQuestion = async (req, res) => {
   try {
     const audioFile = req.file;
     const filePath = "/audioFiles/" + audioFile.originalname;
-    let { text, setting, res1, res2, res3 } = req.body;
+    let { text, setting, responses } = req.body;
     //creates the question
-    res1 = JSON.parse(res1);
-    res2 = JSON.parse(res2);
-    res3 = JSON.parse(res3);
+    responses = JSON.parse(responses);
+    // res2 = JSON.parse(res2);
+    // res3 = JSON.parse(res3);
     const result = await question.createQuestion(filePath, text, setting);
     const questionID = result.insertId;
     //creates the responses for the question_
-    await question.createResponses(questionID, res1, res2, res3);
+    await question.createResponses(questionID, responses);
     res.status(200).json({ message: "question created" });
   } catch (err) {
     res.status(400).json({ message: err.message });

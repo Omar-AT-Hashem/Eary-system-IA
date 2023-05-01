@@ -57,7 +57,7 @@ export class Question {
     }
   };
 
-  createResponses = async (questionID, ...responses) => {
+  createResponses = async (questionID, responses) => {
     try {
       const sql =
         "INSERT INTO questionresponses (questionID, text, isCorrect) VALUES (?,?,?)";
