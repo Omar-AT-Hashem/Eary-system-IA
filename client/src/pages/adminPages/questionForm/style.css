@@ -209,3 +209,11 @@ padding: 2px;
     cursor: pointer;
     opacity: 0.6;
 }
+
+.questionForm-priority{
+    position: absolute;
+    width: 35px;
+    height: 75%;
+    right: 0%;
+
+}

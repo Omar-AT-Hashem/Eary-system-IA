@@ -11,9 +11,9 @@ function QuestionForm() {
       question: "",
       audio: "",
       responses: [
-        { id: 1, response: "", iscorrect: 0 },
-        { id: 2, response: "", iscorrect: 0 },
-        { id: 3, response: "", iscorrect: 0 },
+        { id: 1, response: "", iscorrect: 0, priority: 100 },
+        { id: 2, response: "", iscorrect: 0, priority: 100 },
+        { id: 3, response: "", iscorrect: 0, priority: 100 },
       ],
     },
   ]);
@@ -27,9 +27,9 @@ function QuestionForm() {
         question: "",
         audio: "",
         responses: [
-          { id: 1, response: "", iscorrect: 0 },
-          { id: 2, response: "", iscorrect: 0 },
-          { id: 3, response: "", iscorrect: 0 },
+          { id: 1, response: "", iscorrect: 0, priority: 100 },
+          { id: 2, response: "", iscorrect: 0, priority: 100 },
+          { id: 3, response: "", iscorrect: 0, priority: 100 },
         ],
       },
     ]);
@@ -91,11 +91,21 @@ function QuestionForm() {
         id: newQuestions[e.target.id].responses.length + 1,
         response: "",
         iscorrect: 0,
+        priority: 100 
       },
     ];
 
     setQuestions(newQuestions);
     setRerenderTrigger(Math.random());
+  };
+
+  const handlePriorityChange = (e, questionIndex, responseIndex) => {
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].responses[responseIndex] = {
+      ...newQuestions[questionIndex].responses[responseIndex],
+      priority: parseInt(e.target.value),
+    };
+    setQuestions(newQuestions);
   };
 
   const handleSubmit = (event) => {
@@ -107,8 +117,6 @@ function QuestionForm() {
       formData.set("text", question.question);
       formData.set("setting", question.title);
       formData.set("responses", JSON.stringify(question.responses));
-      // formData.set("res2", JSON.stringify(question.responses[1]));
-      // formData.set("res3", JSON.stringify(question.responses[2]));
       let result = await api.createQuestion(formData);
       console.log(result);
     });
@@ -119,9 +127,9 @@ function QuestionForm() {
         question: "",
         audio: "",
         responses: [
-          { id: 1, response: "", iscorrect: 0 },
-          { id: 2, response: "", iscorrect: 0 },
-          { id: 3, response: "", iscorrect: 0 },
+          { id: 1, response: "", iscorrect: 0 , priority: 100 },
+          { id: 2, response: "", iscorrect: 0 , priority: 100 },
+          { id: 3, response: "", iscorrect: 0 , priority: 100 },
         ],
       },
     ]);
@@ -223,6 +231,20 @@ function QuestionForm() {
                             checked={response.iscorrect === 1}
                             onChange={(event) =>
                               handleRadioChange(
+                                event,
+                                questionIndex,
+                                responseIndex
+                              )
+                            }
+                            required
+                          />
+                          <input
+                            type="text"
+                            name="priority"
+                            className="questionForm-priority"
+                            value={response.priotity}
+                            onChange={(event) =>
+                              handlePriorityChange(
                                 event,
                                 questionIndex,
                                 responseIndex
