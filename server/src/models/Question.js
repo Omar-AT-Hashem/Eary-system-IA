@@ -75,6 +75,33 @@ export class Question {
     }
   };
 
+  createResponse = async (questionID, response) => {
+    try {
+      const sql =
+        "INSERT INTO questionresponses (questionID, text, isCorrect, priority) VALUES (?,?,?,?)";
+      const values = [
+        questionID,
+        response.text,
+        response.isCorrect,
+        response.priority,
+      ];
+      await conn.awaitQuery(sql, values);
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  deleteResponse = async (responseID) => {
+    try {
+      const sql = "DELETE FROM questionresponses WHERE id = ? ";
+      const values = [responseID];
+      const result = await conn.awaitQuery(sql, values);
+      return [result];
+    } catch (err) {
+      throw err;
+    }
+  };
+
   getResponses = async (questionID) => {
     try {
       const sql =
@@ -114,10 +141,10 @@ export class Question {
   updateQuestionRespones = async (responses) => {
     try {
       const sql =
-        "UPDATE questionresponses SET text = ?, isCorrect = ? WHERE id = ?";
+        "UPDATE questionresponses SET text = ?, isCorrect = ?, priority = ? WHERE id = ?";
       responses.forEach(async (response) => {
-        let { text, isCorrect, id } = response;
-        let values = [text, isCorrect, id];
+        let { text, isCorrect, id, priority } = response;
+        let values = [text, isCorrect, priority, id];
         await conn.awaitQuery(sql, values);
       });
     } catch (err) {

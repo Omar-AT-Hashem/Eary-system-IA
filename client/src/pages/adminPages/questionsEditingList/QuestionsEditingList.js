@@ -25,7 +25,7 @@ export function QuestionEditingList() {
     }
 
     fetchData();
-  }, []);
+  }, [rerenderTrigger]);
 
   console.log(questions);
   console.log(responses);
@@ -95,6 +95,33 @@ export function QuestionEditingList() {
     console.log(result2);
   };
 
+  const removeResponse = async(e, index1, index2) => {
+    let reses = responses;
+    if(reses[index1][index2].id){
+    const result = await api.deleteResponse(reses[index1][index2].id)
+    }
+    reses[index1].splice(index2, 1)
+    setResponses(reses)
+    setRerenderTrigger(Math.random())
+    
+  }
+
+  const addResponse = async (e, questionID) => {
+    let reses = responses;
+    reses[e.target.id] = [...reses[e.target.id],  {
+      questionID:questionID,
+      text: "",
+      isCorrect: 0,
+      priority: 100 
+    }]
+    const res = reses[e.target.id][reses[e.target.id].length - 1]
+    const result = await api.createResponse(res)
+    setResponses(reses)
+    setRerenderTrigger(Math.random())
+  }
+
+  
+
   const session = localStorage.getItem("token");
   const adminAuth = localStorage.getItem("isAdmin");
   if (!session || adminAuth != 1) {
@@ -157,8 +184,17 @@ export function QuestionEditingList() {
                         return (
                           <>
                             <div className="questionEditing-response-radio-container">
+                            <div
+                            id={index2}
+                            className="questionEditing-removeResponse"
+                            onClick={(event) =>
+                              removeResponse(event, index1, index2)
+                            }
+                          >
+                            X
+                          </div>
                               <input
-                                id={res.id}
+                                id={res.id ? res.id : Math.random}
                                 className="quesionEditing-response"
                                 type="text"
                                 name="text"
@@ -177,6 +213,20 @@ export function QuestionEditingList() {
                                   handleRadioChange(e, index1, index2)
                                 }
                               />
+                              <input
+                            type="text"
+                            name="priority"
+                            className="questionEditing-priority"
+                            value={res.priority}
+                            onChange={(e) =>
+                              handleResponseChange(
+                                e,
+                                index1,
+                                index2
+                              )
+                            }
+                            required
+                          />
                             </div>
                           </>
                         );
@@ -193,6 +243,14 @@ export function QuestionEditingList() {
                     >
                       Delete
                     </button>
+                    <button
+                    id={questionIndex}
+                    className="questionForm-add-question"
+                    type="button"
+                    onClick={(e) => {addResponse(e, question.id)}}
+                  >
+                    Add Response
+                  </button>
                     <button
                       id={questionIndex}
                       className="questionEditing-update-button"

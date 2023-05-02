@@ -50,9 +50,27 @@ export class apiHandler {
         }
     }
 
+    async deleteResponse(responseID)  {
+        try{
+        let response =  await api.delete(`/delete-response/${responseID}`);
+        return response
+        }catch(err){
+            return err.response; 
+        }
+    }
+
     async updateResponses(relatedResponses){
         try{
             let response =  await api.put('/update-responses', {responses: relatedResponses});
+            return response
+            }catch(err){
+                return err.response; 
+            }
+    }
+
+    async createResponse(response1){
+        try{
+            let response =  await api.post('/create-response', response1);
             return response
             }catch(err){
                 return err.response; 

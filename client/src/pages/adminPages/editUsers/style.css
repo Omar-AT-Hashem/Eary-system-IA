@@ -1,4 +1,5 @@
 .editUsers-background{
+  min-height: 100vh;
     height: 100%;
 }
 .editUsers-container{

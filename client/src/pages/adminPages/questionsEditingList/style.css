@@ -30,6 +30,7 @@
 }
 .questionEditing-response-radio-container{
     display: flex;
+    position: relative;
     flex-direction: row;
     align-items: center;
     margin: 10px;
@@ -115,6 +116,33 @@ position: fixed;
     text-align: center;
     color: #EEEEEE;
 }
+
+.questionEditing-removeResponse{ 
+
+        position: absolute;
+        background-color: #eeeeeeca;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 25px;
+        width: 25px;
+        bottom: 18%;
+        left: -10%;
+        caret-color: transparent;
+}
+ .questionEditing-removeResponse:hover{
+        cursor: pointer;
+        opacity: 0.6;
+    }
+
+    .questionEditing-priority{
+        position: absolute;
+    width: 35px;
+    height: 75%;
+    right: -12%;
+    }
+
 
 
 

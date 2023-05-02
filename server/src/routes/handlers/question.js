@@ -81,6 +81,14 @@ const createQuestion = async (req, res) => {
   }
 };
 
+const createResponse = async (req, res) => {
+  console.log(req.body);
+  const {text, isCorrect, questionID, priority} = req.body
+  const response = {text: text, isCorrect: isCorrect, priority: priority}
+  await question.createResponse(questionID, response);
+  res.status(200).json({ message: "response created" });
+}
+
 const deleteQuestion = async (req, res) => {
   try {
     const id = req.params.id;
@@ -90,6 +98,16 @@ const deleteQuestion = async (req, res) => {
     res.status(403).json({ message: err.message });
   }
 };
+
+const deleteResponse = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await question.deleteResponse(id);
+    res.status(200).json({ message: "Response Deleted" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+}
 
 const updateQuestion = async (req, res) => {
   try {
@@ -148,3 +166,5 @@ questionRoute.post("/get-responses",auth, getQuestionResponses);
 questionRoute.put("/update/:id",auth, adminAuth, updateQuestion);
 questionRoute.put("/update-responses", auth, adminAuth, updateQuestionRespones);
 questionRoute.delete("/delete/:id", auth, adminAuth, deleteQuestion);
+questionRoute.delete("/delete-response/:id", auth, adminAuth, deleteResponse);
+questionRoute.post("/create-response", auth, adminAuth, createResponse);

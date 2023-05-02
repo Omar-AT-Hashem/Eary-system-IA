@@ -19,10 +19,6 @@ export default function UserNavBar() {
       </div>
       <nav>
         <ul>
-          <Link to={"/"}>
-            <li>Home</li>{" "}
-          </Link>
-
           <Link to={`/${username}`}>
             <li>Take Exam</li>{" "}
           </Link>
